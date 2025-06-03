@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PotentielEleve{% endblock %}
+
+{% block body %}
+    <h1>PotentielEleve</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ potentiel_eleve.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ potentiel_eleve.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ potentiel_eleve.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ potentiel_eleve.Email }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ potentiel_eleve.telephone }}</td>
+            </tr>
+            <tr>
+                <th>NumDossierPsup</th>
+                <td>{{ potentiel_eleve.numDossierPsup }}</td>
+            </tr>
+            <tr>
+                <th>FiliereEnvisage</th>
+                <td>{{ potentiel_eleve.filiereEnvisage }}</td>
+            </tr>
+            <tr>
+                <th>AncienEtablissement</th>
+                <td>{{ potentiel_eleve.ancienEtablissement }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_potentiel_eleve_index') }}">back to list</a>
+
+    <a href="{{ path('app_potentiel_eleve_edit', {'id': potentiel_eleve.id}) }}">edit</a>
+
+    {{ include('potentiel_eleve/_delete_form.html.twig') }}
+{% endblock %}
