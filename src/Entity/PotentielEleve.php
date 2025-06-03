@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\PotentitelEleveRepository;
+use App\Repository\PotentielEleveRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PotentitelEleveRepository::class)]
-class PotentitelEleve
+#[ORM\Entity(repositoryClass: PotentielEleveRepository::class)]
+class PotentielEleve
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

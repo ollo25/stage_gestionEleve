@@ -1,0 +1,75 @@
+/* Styles de base */
+.animated-nav {
+    background-color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin: 0 1.5rem;
+    position: relative;
+}
+
+.nav-item a {
+    position: relative;
+    text-decoration: none;
+    color: #4a5568;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    transition: color 0.25s ease;
+    display: inline-block;
+}
+
+.nav-item a:hover {
+    color: #4a6bff;
+}
+
+/* Indicateur animé */
+.nav-indicator {
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background-color: #4a6bff;
+    border-radius: 3px;
+    transition: all 0.3s ease-out;
+}
+
+/* État actif */
+.nav-item.active a {
+    color: #4a6bff;
+}
+
+/* Animation au survol */
+.nav-item:hover ~ .nav-indicator {
+    background-color: rgba(74, 107, 255, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-item {
+        margin: 0.5rem 0;
+    }
+
+    .nav-indicator {
+        display: none;
+    }
+}

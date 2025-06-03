@@ -35,9 +35,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     /**
-     * @var Collection<int, PotentitelEleve>
+     * @var Collection<int, PotentielEleve>
      */
-    #[ORM\OneToMany(targetEntity: PotentitelEleve::class, mappedBy: 'refResponsable')]
+    #[ORM\OneToMany(targetEntity: PotentielEleve::class, mappedBy: 'refResponsable')]
     private Collection $refPotentielEleve;
 
     /**
@@ -126,14 +126,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, PotentitelEleve>
+     * @return Collection<int, PotentielEleve>
      */
     public function getRefPotentielEleve(): Collection
     {
         return $this->refPotentielEleve;
     }
 
-    public function addRefPotentielEleve(PotentitelEleve $refPotentielEleve): static
+    public function addRefPotentielEleve(PotentielEleve $refPotentielEleve): static
     {
         if (!$this->refPotentielEleve->contains($refPotentielEleve)) {
             $this->refPotentielEleve->add($refPotentielEleve);
@@ -143,7 +143,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeRefPotentielEleve(PotentitelEleve $refPotentielEleve): static
+    public function removeRefPotentielEleve(PotentielEleve $refPotentielEleve): static
     {
         if ($this->refPotentielEleve->removeElement($refPotentielEleve)) {
             // set the owning side to null (unless already changed)

@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\PotentitelEleve;
+use App\Entity\PotentielEleve;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<PotentitelEleve>
+ * @extends ServiceEntityRepository<PotentielEleve>
  */
-class PotentitelEleveRepository extends ServiceEntityRepository
+class PotentielEleveRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, PotentitelEleve::class);
+        parent::__construct($registry, PotentielEleve::class);
     }
 
     //    /**
-    //     * @return PotentitelEleve[] Returns an array of PotentitelEleve objects
+    //     * @return PotentielEleve[] Returns an array of PotentielEleve objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class PotentitelEleveRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?PotentitelEleve
+    //    public function findOneBySomeField($value): ?PotentielEleve
     //    {
     //        return $this->createQueryBuilder('p')
     //            ->andWhere('p.exampleField = :val')

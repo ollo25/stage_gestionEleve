@@ -1,17 +1,33 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/base.css') }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/base.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <nav class="animated-nav">
+        <div class="tab-content">
+            <ul class="nav-list">
+            <li class="nav-item active" data-target="home">
+                <a href="#">Accueil</a>
+            </li>
+            <li class="nav-item" data-target="products">
+                <a href="#">Produits</a>
+            </li>
+            <li class="nav-item" data-target="services">
+                <a href="#">Services</a>
+            </li>
+            <li class="nav-item" data-target="about">
+                <a href="#">À propos</a>
+            </li>
+            <li class="nav-item" data-target="contact">
+                <a href="#">Contact</a>
+            </li>
+            <div class="nav-indicator"></div>
+            </ul>
+        </div>
+
+    </nav>
+{% endblock %}
