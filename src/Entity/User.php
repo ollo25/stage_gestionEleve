@@ -46,6 +46,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Convocation::class, mappedBy: 'refResponsable')]
     private Collection $refConvocation;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Prenom = null;
+
     public function __construct()
     {
         $this->refPotentielEleve = new ArrayCollection();
@@ -181,6 +187,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $refConvocation->setRefResponsable(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->Prenom;
+    }
+
+    public function setPrenom(string $Prenom): static
+    {
+        $this->Prenom = $Prenom;
 
         return $this;
     }
