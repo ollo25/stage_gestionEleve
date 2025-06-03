@@ -24,6 +24,7 @@ class PotentielEleveForm extends AbstractType
             ->add('refResponsable', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'nom',
+                'label' => 'Responsable Lié '
             ])
         ;
     }

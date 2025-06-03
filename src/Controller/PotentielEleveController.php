@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/potentiel/eleve')]
+#[Route('/potentiel_eleve')]
 final class PotentielEleveController extends AbstractController
 {
     #[Route(name: 'app_potentiel_eleve_index', methods: ['GET'])]
