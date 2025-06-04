@@ -22,46 +22,46 @@
                     <div class="form-body">
                         {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
 
-                        <div class="form-group-animated">
-                            {{ form_widget(form.Nom, {'attr': {
-                                'class': 'form-control-custom',
-                                'placeholder': ' ',
-                                'id': 'nom'
-                            }}) }}
-                            <label for="nom"><i class="fas fa-signature me-2"></i>Nom</label>
-                        </div>
-
-                        <div class="form-group-animated">
-                            {{ form_widget(form.Prenom, {'attr': {
-                                'class': 'form-control-custom',
-                                'placeholder': ' ',
-                                'id': 'prenom'
-                            }}) }}
-                            <label for="prenom"><i class="fas fa-signature me-2"></i>Prénom</label>
-                        </div>
-
-                        <div class="form-group-animated">
-                            {{ form_widget(form.Email, {'attr': {
-                                'class': 'form-control-custom',
-                                'placeholder': ' ',
-                                'id': 'email'
-                            }}) }}
-                            <label for="email"><i class="fas fa-envelope me-2"></i>Email</label>
-                            <i class="fas fa-at floating-icon"></i>
-                        </div>
-
-                        <div class="form-group-animated">
-                            {{ form_widget(form.Telephone, {'attr': {
-                                'class': 'form-control-custom',
-                                'placeholder': ' ',
-                                'id': 'telephone'
-                            }}) }}
-                            <label for="telephone"><i class="fas fa-phone me-2"></i>Téléphone</label>
-                            <i class="fas fa-mobile-alt floating-icon"></i>
-                        </div>
-
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
+                                <div class="form-group-animated">
+                                    {{ form_widget(form.Nom, {'attr': {
+                                        'class': 'form-control-custom',
+                                        'placeholder': ' ',
+                                        'id': 'nom'
+                                    }}) }}
+                                    <label for="nom"><i class="fas fa-signature me-2"></i>Nom</label>
+                                </div>
+
+                                <div class="form-group-animated">
+                                    {{ form_widget(form.Prenom, {'attr': {
+                                        'class': 'form-control-custom',
+                                        'placeholder': ' ',
+                                        'id': 'prenom'
+                                    }}) }}
+                                    <label for="prenom"><i class="fas fa-signature me-2"></i>Prénom</label>
+                                </div>
+
+                                <div class="form-group-animated">
+                                    {{ form_widget(form.Email, {'attr': {
+                                        'class': 'form-control-custom',
+                                        'placeholder': ' ',
+                                        'id': 'email'
+                                    }}) }}
+                                    <label for="email"><i class="fas fa-envelope me-2"></i>Email</label>
+                                </div>
+
+                                <div class="form-group-animated">
+                                    {{ form_widget(form.Telephone, {'attr': {
+                                        'class': 'form-control-custom',
+                                        'placeholder': ' ',
+                                        'id': 'telephone'
+                                    }}) }}
+                                    <label for="telephone"><i class="fas fa-phone me-2"></i>Téléphone</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
                                 <div class="form-group-animated">
                                     {{ form_widget(form.refPromotion, {'attr': {
                                         'class': 'form-control-custom',
@@ -69,9 +69,7 @@
                                     }}) }}
                                     <label for="promotion"><i class="fas fa-graduation-cap me-2"></i>Promotion</label>
                                 </div>
-                            </div>
 
-                            <div class="col-md-4">
                                 <div class="form-group-animated">
                                     {{ form_widget(form.refStage, {'attr': {
                                         'class': 'form-control-custom',
@@ -79,9 +77,7 @@
                                     }}) }}
                                     <label for="stage"><i class="fas fa-briefcase me-2"></i>Stage</label>
                                 </div>
-                            </div>
 
-                            <div class="col-md-4">
                                 <div class="form-group-animated">
                                     {{ form_widget(form.refAlternance, {'attr': {
                                         'class': 'form-control-custom',
@@ -93,7 +89,7 @@
                         </div>
 
                         <div class="d-flex justify-content-between mt-4">
-                            <a href="{{ path('app_etudiant_index') }}" class="btn btn-outline-secondary">
+                            <a href="{{ path('app_etudiant_index') }}" class="btn-gradient">
                                 <i class="fas fa-arrow-left me-2"></i> Retour
                             </a>
                             <button type="submit" class="btn-gradient">
@@ -112,5 +108,4 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 {% endblock %}

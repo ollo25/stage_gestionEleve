@@ -1,11 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Entreprise{% endblock %}
+{% block title %}Nouvelle Entreprise{% endblock %}
+
 
 {% block body %}
-    <h1>Create new Entreprise</h1>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="form-container animate__animated animate__fadeInUp">
+                    <div class="form-header">
+                        <h2 class="mb-0"> Nouvelle Entreprise</h2>
+                    </div>
 
-    {{ include('entreprise/_form.html.twig') }}
+                    <div class="form-body">
+                        {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
 
-    <a href="{{ path('app_entreprise_index') }}">back to list</a>
+                        <div class="form-group-animated">
+                            {{ form_widget(form.Nom, {'attr': {
+                                'class': 'form-control-custom',
+                                'placeholder': ' ',
+                                'id': 'nom'
+                            }}) }}
+                            <label for="nom"><i class="fas fa-signature me-2"></i>Nom de l'entreprise</label>
+                        </div>
+
+                        <div class="form-group-animated">
+                            {{ form_widget(form.Siret, {'attr': {
+                                'class': 'form-control-custom',
+                                'placeholder': ' ',
+                                'id': 'siret'
+                            }}) }}
+                            <label for="siret"><i class="fas fa-id-card me-2"></i>Numéro SIRET</label>
+                        </div>
+
+                        <div class="form-group-animated">
+                            {{ form_widget(form.Adresse, {'attr': {
+                                'class': 'form-control-custom',
+                                'placeholder': ' ',
+                                'id': 'adresse'
+                            }}) }}
+                            <label for="adresse"><i class="fas fa-map-marker-alt me-2"></i>Adresse</label>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ path('app_entreprise_index') }}" class="btn-gradient">
+                                <i class="fas fa-arrow-left me-2"></i> Retour
+                            </a>
+                            <button type="submit" class="btn-gradient">
+                                <i class="fas fa-save me-2"></i> Enregistrer
+                            </button>
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
