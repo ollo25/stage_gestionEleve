@@ -1,26 +1,58 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Etudiant index{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/data-tables.css') }}">
 {% endblock %}
 
 {% block body %}
-    {% include '_partials/data_table.html.twig' with {
-        title: 'Liste des Étudiants',
-        create_path: 'app_etudiant_new',
-        columns: [
-            { label: 'ID', property: 'id', class: 'col-id' },
-            { label: 'Nom', property: 'nom' },
-            { label: 'Prénom', property: 'prenom' },
-            { label: 'Email', property: 'email' },
-            { label: 'Téléphone', property: 'telephone' }
-        ],
-        actions: [
-            { type: 'view', path: 'app_etudiant_show', label: 'Voir', title: 'Voir détails' },
-            { type: 'edit', path: 'app_etudiant_edit', label: 'Modifier', title: 'Modifier' },
-            { type: 'delete', path: 'app_etudiant_delete', label: 'Suppr.', title: 'Supprimer' }
-        ],
-        data: etudiants
-    } %}
+    <div class="data-table-container">
+        <div class="data-table-header">
+            <h1 class="data-table-title">Liste des Étudiants</h1>
+            <a href="{{ path('app_etudiant_new') }}" class="btn-new">
+                Créer un nouvel étudiant
+            </a>
+        </div>
+
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Email</th>
+                    <th>Telephone</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for etudiant in etudiants %}
+                    <tr>
+                        <td>{{ etudiant.id }}</td>
+                        <td>{{ etudiant.nom }}</td>
+                        <td>{{ etudiant.prenom }}</td>
+                        <td>{{ etudiant.email }}</td>
+                        <td>{{ etudiant.telephone }}</td>
+                        <td>
+                            <a href="{{ path('app_etudiant_show', {'id': etudiant.id}) }}"
+                               class="btn-action btn-show">
+                                Voir
+                            </a>
+                            <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}"
+                               class="btn-action btn-edit">
+                                Modifier
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="no-data">Aucun enregistrement trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
