@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PotentielEleve index{% endblock %}
+
+{% block body %}
+    <h1>PotentielEleve index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>NumDossierPsup</th>
+                <th>FiliereEnvisage</th>
+                <th>AncienEtablissement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for potentiel_eleve in potentiel_eleves %}
+            <tr>
+                <td>{{ potentiel_eleve.id }}</td>
+                <td>{{ potentiel_eleve.Nom }}</td>
+                <td>{{ potentiel_eleve.Prenom }}</td>
+                <td>{{ potentiel_eleve.Email }}</td>
+                <td>{{ potentiel_eleve.Telephone }}</td>
+                <td>{{ potentiel_eleve.NumDossierPsup }}</td>
+                <td>{{ potentiel_eleve.FiliereEnvisage }}</td>
+                <td>{{ potentiel_eleve.AncienEtablissement }}</td>
+                <td>
+                    <a href="{{ path('app_potentiel_eleve_show', {'id': potentiel_eleve.id}) }}">show</a>
+                    <a href="{{ path('app_potentiel_eleve_edit', {'id': potentiel_eleve.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_potentiel_eleve_new') }}">Create new</a>
+{% endblock %}
