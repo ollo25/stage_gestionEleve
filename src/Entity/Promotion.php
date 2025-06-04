@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PromotionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PromotionRepository::class)]
@@ -16,14 +18,22 @@ class Promotion
     #[ORM\Column(length: 255)]
     private ?string $Filiere = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 100)]
     private ?string $Annee = null;
 
     #[ORM\Column]
     private ?int $Places = null;
 
-    #[ORM\OneToOne(mappedBy: 'refPromotion', cascade: ['persist', 'remove'])]
-    private ?Etudiant $refEtudiant = null;
+    /**
+     * @var Collection<int, Etudiant>
+     */
+    #[ORM\OneToMany(targetEntity: Etudiant::class, mappedBy: 'refPromotion')]
+    private Collection $etudiants;
+
+    public function __construct()
+    {
+        $this->etudiants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -66,19 +76,32 @@ class Promotion
         return $this;
     }
 
-    public function getRefEtudiant(): ?Etudiant
+    /**
+     * @return Collection<int, Etudiant>
+     */
+    public function getEtudiants(): Collection
     {
-        return $this->refEtudiant;
+        return $this->etudiants;
     }
 
-    public function setRefEtudiant(Etudiant $refEtudiant): static
+    public function addEtudiant(Etudiant $etudiant): static
     {
-        // set the owning side of the relation if necessary
-        if ($refEtudiant->getRefPromotion() !== $this) {
-            $refEtudiant->setRefPromotion($this);
+        if (!$this->etudiants->contains($etudiant)) {
+            $this->etudiants->add($etudiant);
+            $etudiant->setRefPromotion($this);
         }
 
-        $this->refEtudiant = $refEtudiant;
+        return $this;
+    }
+
+    public function removeEtudiant(Etudiant $etudiant): static
+    {
+        if ($this->etudiants->removeElement($etudiant)) {
+            // set the owning side to null (unless already changed)
+            if ($etudiant->getRefPromotion() === $this) {
+                $etudiant->setRefPromotion(null);
+            }
+        }
 
         return $this;
     }

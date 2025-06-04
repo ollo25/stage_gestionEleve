@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EntrepriseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EntrepriseRepository::class)]
@@ -22,8 +24,24 @@ class Entreprise
     #[ORM\Column(length: 255)]
     private ?string $Adresse = null;
 
-    #[ORM\OneToOne(mappedBy: 'refEntreprise', cascade: ['persist', 'remove'])]
-    private ?Alternance $refAlternance = null;
+    /**
+     * @var Collection<int, Stage>
+     */
+    #[ORM\OneToMany(targetEntity: Stage::class, mappedBy: 'refEntreprise')]
+    private Collection $stages;
+
+    /**
+     * @var Collection<int, Alternance>
+     */
+    #[ORM\OneToMany(targetEntity: Alternance::class, mappedBy: 'refEntreprise')]
+    private Collection $alternances;
+
+    public function __construct()
+    {
+        $this->stages = new ArrayCollection();
+        $this->alternances = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -65,19 +83,62 @@ class Entreprise
         return $this;
     }
 
-    public function getRefAlternance(): ?Alternance
+    /**
+     * @return Collection<int, Stage>
+     */
+    public function getStages(): Collection
     {
-        return $this->refAlternance;
+        return $this->stages;
     }
 
-    public function setRefAlternance(Alternance $refAlternance): static
+    public function addStage(Stage $stage): static
     {
-        // set the owning side of the relation if necessary
-        if ($refAlternance->getRefEntreprise() !== $this) {
-            $refAlternance->setRefEntreprise($this);
+        if (!$this->stages->contains($stage)) {
+            $this->stages->add($stage);
+            $stage->setRefEntreprise($this);
         }
 
-        $this->refAlternance = $refAlternance;
+        return $this;
+    }
+
+    public function removeStage(Stage $stage): static
+    {
+        if ($this->stages->removeElement($stage)) {
+            // set the owning side to null (unless already changed)
+            if ($stage->getRefEntreprise() === $this) {
+                $stage->setRefEntreprise(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Alternance>
+     */
+    public function getAlternances(): Collection
+    {
+        return $this->alternances;
+    }
+
+    public function addAlternance(Alternance $alternance): static
+    {
+        if (!$this->alternances->contains($alternance)) {
+            $this->alternances->add($alternance);
+            $alternance->setRefEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlternance(Alternance $alternance): static
+    {
+        if ($this->alternances->removeElement($alternance)) {
+            // set the owning side to null (unless already changed)
+            if ($alternance->getRefEntreprise() === $this) {
+                $alternance->setRefEntreprise(null);
+            }
+        }
 
         return $this;
     }

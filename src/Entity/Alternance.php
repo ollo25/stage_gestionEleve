@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AlternanceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,24 +16,32 @@ class Alternance
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $DateDebut = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $DateFin = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $coutContrat = null;
+    #[ORM\Column]
+    private ?float $CoutContrat = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $tuteurProfesseur = null;
+    private ?string $TuteurProfesseur = null;
 
-    #[ORM\OneToOne(inversedBy: 'refAlternance', cascade: ['persist', 'remove'])]
+    /**
+     * @var Collection<int, Etudiant>
+     */
+    #[ORM\OneToMany(targetEntity: Etudiant::class, mappedBy: 'refAlternance')]
+    private Collection $etudiants;
+
+    #[ORM\ManyToOne(inversedBy: 'alternances')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Entreprise $refEntreprise = null;
 
-    #[ORM\OneToOne(mappedBy: 'refAlternance', cascade: ['persist', 'remove'])]
-    private ?Etudiant $refEtudiant = null;
+    public function __construct()
+    {
+        $this->etudiants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -43,7 +53,7 @@ class Alternance
         return $this->DateDebut;
     }
 
-    public function setDateDebut(?\DateTime $DateDebut): static
+    public function setDateDebut(\DateTime $DateDebut): static
     {
         $this->DateDebut = $DateDebut;
 
@@ -55,7 +65,7 @@ class Alternance
         return $this->DateFin;
     }
 
-    public function setDateFin(?\DateTime $DateFin): static
+    public function setDateFin(\DateTime $DateFin): static
     {
         $this->DateFin = $DateFin;
 
@@ -64,24 +74,54 @@ class Alternance
 
     public function getCoutContrat(): ?float
     {
-        return $this->coutContrat;
+        return $this->CoutContrat;
     }
 
-    public function setCoutContrat(?float $coutContrat): static
+    public function setCoutContrat(float $CoutContrat): static
     {
-        $this->coutContrat = $coutContrat;
+        $this->CoutContrat = $CoutContrat;
 
         return $this;
     }
 
     public function getTuteurProfesseur(): ?string
     {
-        return $this->tuteurProfesseur;
+        return $this->TuteurProfesseur;
     }
 
-    public function setTuteurProfesseur(?string $tuteurProfesseur): static
+    public function setTuteurProfesseur(string $TuteurProfesseur): static
     {
-        $this->tuteurProfesseur = $tuteurProfesseur;
+        $this->TuteurProfesseur = $TuteurProfesseur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Etudiant>
+     */
+    public function getEtudiants(): Collection
+    {
+        return $this->etudiants;
+    }
+
+    public function addEtudiant(Etudiant $etudiant): static
+    {
+        if (!$this->etudiants->contains($etudiant)) {
+            $this->etudiants->add($etudiant);
+            $etudiant->setRefAlternance($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEtudiant(Etudiant $etudiant): static
+    {
+        if ($this->etudiants->removeElement($etudiant)) {
+            // set the owning side to null (unless already changed)
+            if ($etudiant->getRefAlternance() === $this) {
+                $etudiant->setRefAlternance(null);
+            }
+        }
 
         return $this;
     }
@@ -91,31 +131,9 @@ class Alternance
         return $this->refEntreprise;
     }
 
-    public function setRefEntreprise(Entreprise $refEntreprise): static
+    public function setRefEntreprise(?Entreprise $refEntreprise): static
     {
         $this->refEntreprise = $refEntreprise;
-
-        return $this;
-    }
-
-    public function getRefEtudiant(): ?Etudiant
-    {
-        return $this->refEtudiant;
-    }
-
-    public function setRefEtudiant(?Etudiant $refEtudiant): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($refEtudiant === null && $this->refEtudiant !== null) {
-            $this->refEtudiant->setRefAlternance(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($refEtudiant !== null && $refEtudiant->getRefAlternance() !== $this) {
-            $refEtudiant->setRefAlternance($this);
-        }
-
-        $this->refEtudiant = $refEtudiant;
 
         return $this;
     }

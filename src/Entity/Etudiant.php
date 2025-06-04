@@ -24,28 +24,28 @@ class Etudiant
     #[ORM\Column(length: 255)]
     private ?string $Email = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 50)]
     private ?string $Telephone = null;
-
-    #[ORM\OneToOne(inversedBy: 'refEtudiant', cascade: ['persist', 'remove'])]
-    private ?Stage $refStage = null;
 
     /**
      * @var Collection<int, Convocation>
      */
-    #[ORM\OneToMany(targetEntity: Convocation::class, mappedBy: 'refConvocation')]
-    private Collection $refConvocation;
+    #[ORM\OneToMany(targetEntity: Convocation::class, mappedBy: 'refEtudiant')]
+    private Collection $convocations;
 
-    #[ORM\OneToOne(inversedBy: 'refEtudiant', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'etudiants')]
+    private ?Stage $refStage = null;
+
+    #[ORM\ManyToOne(inversedBy: 'etudiants')]
     private ?Alternance $refAlternance = null;
 
-    #[ORM\OneToOne(inversedBy: 'refEtudiant', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'etudiants')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Promotion $refPromotion = null;
 
     public function __construct()
     {
-        $this->refConvocation = new ArrayCollection();
+        $this->convocations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -101,6 +101,36 @@ class Etudiant
         return $this;
     }
 
+    /**
+     * @return Collection<int, Convocation>
+     */
+    public function getConvocations(): Collection
+    {
+        return $this->convocations;
+    }
+
+    public function addConvocation(Convocation $convocation): static
+    {
+        if (!$this->convocations->contains($convocation)) {
+            $this->convocations->add($convocation);
+            $convocation->setRefEtudiant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConvocation(Convocation $convocation): static
+    {
+        if ($this->convocations->removeElement($convocation)) {
+            // set the owning side to null (unless already changed)
+            if ($convocation->getRefEtudiant() === $this) {
+                $convocation->setRefEtudiant(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getRefStage(): ?Stage
     {
         return $this->refStage;
@@ -109,36 +139,6 @@ class Etudiant
     public function setRefStage(?Stage $refStage): static
     {
         $this->refStage = $refStage;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Convocation>
-     */
-    public function getRefConvocation(): Collection
-    {
-        return $this->refConvocation;
-    }
-
-    public function addRefConvocation(Convocation $refConvocation): static
-    {
-        if (!$this->refConvocation->contains($refConvocation)) {
-            $this->refConvocation->add($refConvocation);
-            $refConvocation->setRefConvocation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRefConvocation(Convocation $refConvocation): static
-    {
-        if ($this->refConvocation->removeElement($refConvocation)) {
-            // set the owning side to null (unless already changed)
-            if ($refConvocation->getRefConvocation() === $this) {
-                $refConvocation->setRefConvocation(null);
-            }
-        }
 
         return $this;
     }
@@ -160,7 +160,7 @@ class Etudiant
         return $this->refPromotion;
     }
 
-    public function setRefPromotion(Promotion $refPromotion): static
+    public function setRefPromotion(?Promotion $refPromotion): static
     {
         $this->refPromotion = $refPromotion;
 

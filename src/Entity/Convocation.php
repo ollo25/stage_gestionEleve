@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ConvocationRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ConvocationRepository::class)]
@@ -13,23 +14,24 @@ class Convocation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $Date = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Motif = null;
 
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $Description = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 500, nullable: true)]
     private ?string $ActionMiseEnPlace = null;
 
-    #[ORM\ManyToOne(inversedBy: 'refEtudiant')]
+    #[ORM\ManyToOne(inversedBy: 'convocations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $refResponsable = null;
 
-    #[ORM\ManyToOne(inversedBy: 'refEtudiant')]
+    #[ORM\ManyToOne(inversedBy: 'convocations')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Etudiant $refEtudiant = null;
 
     public function getId(): ?int
@@ -54,7 +56,7 @@ class Convocation
         return $this->Motif;
     }
 
-    public function setMotif(string $Motif): static
+    public function setMotif(?string $Motif): static
     {
         $this->Motif = $Motif;
 
@@ -78,7 +80,7 @@ class Convocation
         return $this->ActionMiseEnPlace;
     }
 
-    public function setActionMiseEnPlace(string $ActionMiseEnPlace): static
+    public function setActionMiseEnPlace(?string $ActionMiseEnPlace): static
     {
         $this->ActionMiseEnPlace = $ActionMiseEnPlace;
 
@@ -97,12 +99,12 @@ class Convocation
         return $this;
     }
 
-    public function getrefEtudiant(): ?Etudiant
+    public function getRefEtudiant(): ?Etudiant
     {
         return $this->refEtudiant;
     }
 
-    public function setrefEtudiant(?Etudiant $refEtudiant): static
+    public function setRefEtudiant(?Etudiant $refEtudiant): static
     {
         $this->refEtudiant = $refEtudiant;
 

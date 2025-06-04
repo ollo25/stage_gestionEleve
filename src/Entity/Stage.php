@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,8 +22,20 @@ class Stage
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $DateFin = null;
 
-    #[ORM\OneToOne(mappedBy: 'refStage', cascade: ['persist', 'remove'])]
-    private ?Etudiant $refEtudiant = null;
+    /**
+     * @var Collection<int, Etudiant>
+     */
+    #[ORM\OneToMany(targetEntity: Etudiant::class, mappedBy: 'refStage')]
+    private Collection $etudiants;
+
+    #[ORM\ManyToOne(inversedBy: 'stages')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?entreprise $refEntreprise = null;
+
+    public function __construct()
+    {
+        $this->etudiants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,24 +66,44 @@ class Stage
         return $this;
     }
 
-    public function getRefEtudiant(): ?Etudiant
+    /**
+     * @return Collection<int, Etudiant>
+     */
+    public function getEtudiants(): Collection
     {
-        return $this->refEtudiant;
+        return $this->etudiants;
     }
 
-    public function setRefEtudiant(?Etudiant $refEtudiant): static
+    public function addEtudiant(Etudiant $etudiant): static
     {
-        // unset the owning side of the relation if necessary
-        if ($refEtudiant === null && $this->refEtudiant !== null) {
-            $this->refEtudiant->setRefStage(null);
+        if (!$this->etudiants->contains($etudiant)) {
+            $this->etudiants->add($etudiant);
+            $etudiant->setRefStage($this);
         }
 
-        // set the owning side of the relation if necessary
-        if ($refEtudiant !== null && $refEtudiant->getRefStage() !== $this) {
-            $refEtudiant->setRefStage($this);
+        return $this;
+    }
+
+    public function removeEtudiant(Etudiant $etudiant): static
+    {
+        if ($this->etudiants->removeElement($etudiant)) {
+            // set the owning side to null (unless already changed)
+            if ($etudiant->getRefStage() === $this) {
+                $etudiant->setRefStage(null);
+            }
         }
 
-        $this->refEtudiant = $refEtudiant;
+        return $this;
+    }
+
+    public function getRefEntreprise(): ?entreprise
+    {
+        return $this->refEntreprise;
+    }
+
+    public function setRefEntreprise(?entreprise $refEntreprise): static
+    {
+        $this->refEntreprise = $refEntreprise;
 
         return $this;
     }

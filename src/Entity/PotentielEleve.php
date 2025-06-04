@@ -22,19 +22,19 @@ class PotentielEleve
     #[ORM\Column(length: 255)]
     private ?string $Email = null;
 
-    #[ORM\Column(length: 20)]
-    private ?string $telephone = null;
+    #[ORM\Column(length: 255)]
+    private ?string $Telephone = null;
 
     #[ORM\Column(length: 100, nullable: true)]
-    private ?string $numDossierPsup = null;
+    private ?string $NumDossierPsup = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $filiereEnvisage = null;
+    #[ORM\Column(length: 100)]
+    private ?string $FiliereEnvisage = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $ancienEtablissement = null;
+    private ?string $AncienEtablissement = null;
 
-    #[ORM\ManyToOne(inversedBy: 'refPotentielEleve')]
+    #[ORM\ManyToOne(inversedBy: 'potentielEleves')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $refResponsable = null;
 
@@ -81,48 +81,48 @@ class PotentielEleve
 
     public function getTelephone(): ?string
     {
-        return $this->telephone;
+        return $this->Telephone;
     }
 
-    public function setTelephone(string $telephone): static
+    public function setTelephone(string $Telephone): static
     {
-        $this->telephone = $telephone;
+        $this->Telephone = $Telephone;
 
         return $this;
     }
 
     public function getNumDossierPsup(): ?string
     {
-        return $this->numDossierPsup;
+        return $this->NumDossierPsup;
     }
 
-    public function setNumDossierPsup(?string $numDossierPsup): static
+    public function setNumDossierPsup(string $NumDossierPsup): static
     {
-        $this->numDossierPsup = $numDossierPsup;
+        $this->NumDossierPsup = $NumDossierPsup;
 
         return $this;
     }
 
     public function getFiliereEnvisage(): ?string
     {
-        return $this->filiereEnvisage;
+        return $this->FiliereEnvisage;
     }
 
-    public function setFiliereEnvisage(?string $filiereEnvisage): static
+    public function setFiliereEnvisage(string $FiliereEnvisage): static
     {
-        $this->filiereEnvisage = $filiereEnvisage;
+        $this->FiliereEnvisage = $FiliereEnvisage;
 
         return $this;
     }
 
     public function getAncienEtablissement(): ?string
     {
-        return $this->ancienEtablissement;
+        return $this->AncienEtablissement;
     }
 
-    public function setAncienEtablissement(string $ancienEtablissement): static
+    public function setAncienEtablissement(string $AncienEtablissement): static
     {
-        $this->ancienEtablissement = $ancienEtablissement;
+        $this->AncienEtablissement = $AncienEtablissement;
 
         return $this;
     }
