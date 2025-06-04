@@ -5,6 +5,9 @@
 {% block stylesheets %}
     {{ parent() }}
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
 
 {% block body %}
     <div class="data-table-container">
@@ -16,7 +19,7 @@
         </div>
 
         <div class="data-table-wrapper">
-            <table class="data-table">
+            <table class="data-table" id="myTable">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -36,13 +39,11 @@
                         <td>{{ etudiant.email }}</td>
                         <td>{{ etudiant.telephone }}</td>
                         <td>
-                            <a href="{{ path('app_etudiant_show', {'id': etudiant.id}) }}"
-                               class="btn-action btn-show">
-                                Voir
-                            </a>
-                            <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}"
-                               class="btn-action btn-edit">
-                                Modifier
+                            <a href="{{ path('app_etudiant_show', {'id': etudiant.id}) }}">
+                                <i class="bi bi-eye"></i>
+                            </a>  &nbsp &nbsp
+                            <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}">
+                                <i class="bi bi-pencil-square"></i>
                             </a>
                         </td>
                     </tr>
