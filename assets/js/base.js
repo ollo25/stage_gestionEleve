@@ -2,22 +2,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = document.querySelectorAll('.nav-item');
     const indicator = document.querySelector('.nav-indicator');
 
+    // Trouve l'élément actif (depuis Twig)
+    const active = document.querySelector('.nav-item.active');
+    if (active && indicator) {
+        indicator.style.transition = 'none'; // pas d'animation
+        indicator.style.width = `${active.offsetWidth}px`;
+        indicator.style.left = `${active.offsetLeft}px`;
+    }
+
+    // (Optionnel) Pour une MAJ dynamique au clic
     items.forEach(item => {
-        item.addEventListener('click', function() {
-            // Met à jour les classes actives
+        item.addEventListener('click', function () {
             items.forEach(i => i.classList.remove('active'));
             this.classList.add('active');
-
-            // Anime l'indicateur
+            indicator.style.transition = 'none';
             indicator.style.width = `${this.offsetWidth}px`;
             indicator.style.left = `${this.offsetLeft}px`;
         });
     });
-
-    // Initialise avec l'élément actif par défaut
-    const active = document.querySelector('.nav-item.active');
-    if (active) {
-        indicator.style.width = `${active.offsetWidth}px`;
-        indicator.style.left = `${active.offsetLeft}px`;
-    }
 });

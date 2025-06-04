@@ -5,29 +5,22 @@
 {% block javascripts %}
     <script src="{{ asset('js/base.js') }}"></script>
 {% endblock %}
-
-{% block body %}
-    <nav class="animated-nav">
-        <div class="tab-content">
-            <ul class="nav-list">
-            <li class="nav-item active" data-target="home">
-                <a href="#">Accueil</a>
+<nav class="animated-nav">
+    <div class="tab-content">
+        <ul class="nav-list">
+            <li class="nav-item {% if app.request.attributes.get('_route') == 'app_etudiant_index' %}active{% endif %}" data-target="home">
+                <a href="{{ path('app_etudiant_index') }}">Élèves</a>
             </li>
-            <li class="nav-item" data-target="products">
-                <a href="#">Produits</a>
+            <li class="nav-item {% if app.request.attributes.get('_route') == 'app_potentiel_eleve_index' %}active{% endif %}" data-target="products">
+                <a href="{{ path('app_potentiel_eleve_index') }}">Potentiels Élèves</a>
             </li>
-            <li class="nav-item" data-target="services">
-                <a href="#">Services</a>
-            </li>
-            <li class="nav-item" data-target="about">
-                <a href="#">À propos</a>
-            </li>
-            <li class="nav-item" data-target="contact">
-                <a href="#">Contact</a>
+            <li class="nav-item {% if app.request.attributes.get('_route') == 'app_entreprise_index' %}active{% endif %}" data-target="services">
+                <a href="{{ path('app_entreprise_index') }}">Entreprises</a>
             </li>
             <div class="nav-indicator"></div>
-            </ul>
-        </div>
+        </ul>
+    </div>
+</nav>
+{% block body %}
 
-    </nav>
 {% endblock %}
