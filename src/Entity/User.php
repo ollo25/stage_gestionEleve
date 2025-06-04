@@ -34,28 +34,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    /**
-     * @var Collection<int, PotentielEleve>
-     */
-    #[ORM\OneToMany(targetEntity: PotentielEleve::class, mappedBy: 'refResponsable')]
-    private Collection $refPotentielEleve;
-
-    /**
-     * @var Collection<int, Convocation>
-     */
-    #[ORM\OneToMany(targetEntity: Convocation::class, mappedBy: 'refResponsable')]
-    private Collection $refConvocation;
-
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
     private ?string $Prenom = null;
 
+    /**
+     * @var Collection<int, PotentielEleve>
+     */
+    #[ORM\OneToMany(targetEntity: PotentielEleve::class, mappedBy: 'refResponsable')]
+    private Collection $potentielEleves;
+
+    /**
+     * @var Collection<int, Convocation>
+     */
+    #[ORM\OneToMany(targetEntity: Convocation::class, mappedBy: 'refResponsable')]
+    private Collection $convocations;
+
     public function __construct()
     {
-        $this->refPotentielEleve = new ArrayCollection();
-        $this->refConvocation = new ArrayCollection();
+        $this->potentielEleves = new ArrayCollection();
+        $this->convocations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -131,66 +131,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return Collection<int, PotentielEleve>
-     */
-    public function getRefPotentielEleve(): Collection
-    {
-        return $this->refPotentielEleve;
-    }
-
-    public function addRefPotentielEleve(PotentielEleve $refPotentielEleve): static
-    {
-        if (!$this->refPotentielEleve->contains($refPotentielEleve)) {
-            $this->refPotentielEleve->add($refPotentielEleve);
-            $refPotentielEleve->setRefResponsable($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRefPotentielEleve(PotentielEleve $refPotentielEleve): static
-    {
-        if ($this->refPotentielEleve->removeElement($refPotentielEleve)) {
-            // set the owning side to null (unless already changed)
-            if ($refPotentielEleve->getRefResponsable() === $this) {
-                $refPotentielEleve->setRefResponsable(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Convocation>
-     */
-    public function getRefConvocation(): Collection
-    {
-        return $this->refConvocation;
-    }
-
-    public function addRefConvocation(Convocation $refConvocation): static
-    {
-        if (!$this->refConvocation->contains($refConvocation)) {
-            $this->refConvocation->add($refConvocation);
-            $refConvocation->setRefResponsable($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRefConvocation(Convocation $refConvocation): static
-    {
-        if ($this->refConvocation->removeElement($refConvocation)) {
-            // set the owning side to null (unless already changed)
-            if ($refConvocation->getRefResponsable() === $this) {
-                $refConvocation->setRefResponsable(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getNom(): ?string
     {
         return $this->nom;
@@ -211,6 +151,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(string $Prenom): static
     {
         $this->Prenom = $Prenom;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PotentielEleve>
+     */
+    public function getPotentielEleves(): Collection
+    {
+        return $this->potentielEleves;
+    }
+
+    public function addPotentielElefe(PotentielEleve $potentielElefe): static
+    {
+        if (!$this->potentielEleves->contains($potentielElefe)) {
+            $this->potentielEleves->add($potentielElefe);
+            $potentielElefe->setRefResponsable($this);
+        }
+
+        return $this;
+    }
+
+    public function removePotentielElefe(PotentielEleve $potentielElefe): static
+    {
+        if ($this->potentielEleves->removeElement($potentielElefe)) {
+            // set the owning side to null (unless already changed)
+            if ($potentielElefe->getRefResponsable() === $this) {
+                $potentielElefe->setRefResponsable(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Convocation>
+     */
+    public function getConvocations(): Collection
+    {
+        return $this->convocations;
+    }
+
+    public function addConvocation(Convocation $convocation): static
+    {
+        if (!$this->convocations->contains($convocation)) {
+            $this->convocations->add($convocation);
+            $convocation->setRefResponsable($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConvocation(Convocation $convocation): static
+    {
+        if ($this->convocations->removeElement($convocation)) {
+            // set the owning side to null (unless already changed)
+            if ($convocation->getRefResponsable() === $this) {
+                $convocation->setRefResponsable(null);
+            }
+        }
 
         return $this;
     }
