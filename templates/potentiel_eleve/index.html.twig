@@ -56,6 +56,16 @@
                             <a href="{{ path('app_potentiel_eleve_edit', {'id': potentiel_eleve.id}) }}" class="btn-action" title="Modifier">
                                 <i class="fas fa-edit"></i>
                             </a>
+                            <form method="post"
+                                  action="{{ path('app_potentiel_eleve_delete', {'id': potentiel_eleve.id}) }}"
+                                  onsubmit="return confirm('Confirmer la suppression ?');"
+                                  style="display: inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ potentiel_eleve.id) }}">
+                                <button type="submit" title="Supprimer"
+                                        style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 {% else %}
