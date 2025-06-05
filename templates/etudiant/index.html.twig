@@ -21,6 +21,11 @@
             <a href="{{ path('app_etudiant_new') }}" class="btn-new">
                 Ajouter un nouvel étudiant
             </a>
+            {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+            {{ form_row(form.csv_file) }}
+            <button type="submit">Importer</button>
+            {{ form_end(form) }}
+
         </div>
 
         <div class="data-table-wrapper">

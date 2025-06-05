@@ -2,18 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Etudiant;
+use App\Entity\Promotion;
 use App\Form\CsvImportTypeForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Etudiant;
+use App\Repository\PromotionRepository;
 
 class EtudiantImportController extends AbstractController
 {
     #[Route('/import_etudiant', name: 'import_etudiant')]
-    public function importEtudiant(Request $request, EntityManagerInterface $manager): Response
+    public function import(Request $request, EntityManagerInterface $manager , PromotionRepository $promotionRepository): Response
     {
         $form = $this->createForm(CsvImportTypeForm::class);
         $form->handleRequest($request);
@@ -21,27 +23,33 @@ class EtudiantImportController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form['csv_file']->getData();
 
-            if (($handle = fopen($file->getPathname(), 'r')) !== FALSE) {
-                $header = fgetcsv($handle, 1000, ";");
+            if (($handle = fopen($file->getPathname(), 'r')) !== false) {
+                fgetcsv($handle, 1000, ";"); // ignore l'en-tête
 
-                while (($row = fgetcsv($handle, 1000, ";")) !== FALSE) {
-                    $eleve = new Etudiant();
-                    $eleve->setNom($row[0]);
-                    $eleve->setPrenom($row[1]);
-                    $eleve->setEmail($row[2]);
-                    $eleve->setTelephone($row[3]);
+                while (($row = fgetcsv($handle, 1000, ";")) !== false) {
+                    $etudiant = new Etudiant();
+                    $etudiant->setNom($row[0]);
+                    $etudiant->setPrenom($row[1]);
+                    $etudiant->setEmail($row[2]);
+                    $etudiant->setTelephone($row[3]);
 
-
-                    $manager->persist($eleve);
+                    $promotion = $promotionRepository->findOneBy(['nom' => $row[4]]);
+                    if (!$promotion) {
+                        continue;
+                    }
+                    $etudiant->setRefPromotion($promotion);
                 }
+
                 fclose($handle);
                 $manager->flush();
 
-                $this->addFlash('success', 'Import avec succes');
-                return $this->redirectToRoute('app_etudiant_index');
+                $this->addFlash('success', 'Import réussi.');
             }
+
+            return $this->redirectToRoute('app_etudiant_index');
         }
-        return $this->render('import/etudiant.html.twig', [
-            'form' => $form->createView(),]);
+
+        // afficher le formulaire sur la même page
+        return $this->redirectToRoute('app_etudiant_index');
     }
 }

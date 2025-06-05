@@ -10,15 +10,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Form\CsvImportTypeForm;
+
 
 #[Route('/etudiant')]
 final class EtudiantController extends AbstractController
 {
-    #[Route(name: 'app_etudiant_index', methods: ['GET'])]
+    #[Route(name: 'app_etudiant_index', methods: ['GET', 'POST'])]
+
     public function index(EtudiantRepository $etudiantRepository): Response
     {
+        $form = $this->createForm(CsvImportTypeForm::class);
         return $this->render('etudiant/index.html.twig', [
             'etudiants' => $etudiantRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -78,4 +83,6 @@ final class EtudiantController extends AbstractController
 
         return $this->redirectToRoute('app_etudiant_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }
