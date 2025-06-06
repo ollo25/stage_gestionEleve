@@ -38,6 +38,9 @@ class Alternance
     #[ORM\JoinColumn(nullable: false)]
     private ?Entreprise $refEntreprise = null;
 
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $Description = null;
+
     public function __construct()
     {
         $this->etudiants = new ArrayCollection();
@@ -134,6 +137,18 @@ class Alternance
     public function setRefEntreprise(?Entreprise $refEntreprise): static
     {
         $this->refEntreprise = $refEntreprise;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(?string $Description): static
+    {
+        $this->Description = $Description;
 
         return $this;
     }

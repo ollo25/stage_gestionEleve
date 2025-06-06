@@ -32,6 +32,9 @@ class Stage
     #[ORM\JoinColumn(nullable: false)]
     private ?entreprise $refEntreprise = null;
 
+    #[ORM\Column(length: 500 , nullable: true)]
+    private ?string $Description = null;
+
     public function __construct()
     {
         $this->etudiants = new ArrayCollection();
@@ -104,6 +107,18 @@ class Stage
     public function setRefEntreprise(?entreprise $refEntreprise): static
     {
         $this->refEntreprise = $refEntreprise;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(string $Description): static
+    {
+        $this->Description = $Description;
 
         return $this;
     }
