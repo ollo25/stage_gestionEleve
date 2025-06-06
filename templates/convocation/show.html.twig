@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Convocation{% endblock %}
+
+{% block body %}
+    <h1>Convocation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ convocation.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ convocation.Date ? convocation.Date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Motif</th>
+                <td>{{ convocation.Motif }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ convocation.Description }}</td>
+            </tr>
+            <tr>
+                <th>ActionMiseEnPlace</th>
+                <td>{{ convocation.ActionMiseEnPlace }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_convocation_index') }}">back to list</a>
+
+    <a href="{{ path('app_convocation_edit', {'id': convocation.id}) }}">edit</a>
+
+    {{ include('convocation/_delete_form.html.twig') }}
+{% endblock %}

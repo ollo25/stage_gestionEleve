@@ -35,6 +35,9 @@ class Stage
     #[ORM\Column(length: 500 , nullable: true)]
     private ?string $Description = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $Poste = null;
+
     public function __construct()
     {
         $this->etudiants = new ArrayCollection();
@@ -119,6 +122,18 @@ class Stage
     public function setDescription(string $Description): static
     {
         $this->Description = $Description;
+
+        return $this;
+    }
+
+    public function getPoste(): ?string
+    {
+        return $this->Poste;
+    }
+
+    public function setPoste(string $Poste): static
+    {
+        $this->Poste = $Poste;
 
         return $this;
     }

@@ -48,7 +48,9 @@ class EtudiantForm extends AbstractType
             ])
             ->add('refStage', EntityType::class, [
                 'class' => Stage::class,
-                'choice_label' => 'id',
+                'choice_label' => function (Stage $stage) {
+                    return $stage->getRefEntreprise()->getNom();
+                },
                 'attr' => ['class' => 'form-select'],
                 'label' => 'Stage associé',
                 'placeholder' => 'Sélectionnez un stage',
@@ -56,7 +58,9 @@ class EtudiantForm extends AbstractType
             ])
             ->add('refAlternance', EntityType::class, [
                 'class' => Alternance::class,
-                'choice_label' => 'id',
+                'choice_label' => function (Alternance $alternance) {
+                return $alternance->getRefEntreprise()->getNom();
+                },
                 'attr' => ['class' => 'form-select'],
                 'label' => 'Alternance associée',
                 'placeholder' => 'Sélectionnez une alternance',

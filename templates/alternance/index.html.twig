@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Alternance index{% endblock %}
+
+{% block body %}
+    <h1>Alternance index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateDebut</th>
+                <th>DateFin</th>
+                <th>CoutContrat</th>
+                <th>TuteurProfesseur</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for alternance in alternances %}
+            <tr>
+                <td>{{ alternance.id }}</td>
+                <td>{{ alternance.DateDebut ? alternance.DateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ alternance.DateFin ? alternance.DateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ alternance.CoutContrat }}</td>
+                <td>{{ alternance.TuteurProfesseur }}</td>
+                <td>
+                    <a href="{{ path('app_alternance_show', {'id': alternance.id}) }}">show</a>
+                    <a href="{{ path('app_alternance_edit', {'id': alternance.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_alternance_new') }}">Create new</a>
+{% endblock %}
