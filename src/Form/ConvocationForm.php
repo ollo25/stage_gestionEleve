@@ -27,9 +27,8 @@ class ConvocationForm extends AbstractType
             ])
             ->add('refEtudiant', EntityType::class, [
                 'class' => Etudiant::class,
-                'choice_label' => function (Etudiant $etudiant) {
-                return $etudiant->getNom() . ' ' . $etudiant->getPrenom();
-                }
+                'choice_label' => fn(Etudiant $e) => $e->getPrenom() . ' ' . $e->getNom(),
+                'disabled' => true,
             ])
         ;
     }
