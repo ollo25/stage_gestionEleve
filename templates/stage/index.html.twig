@@ -9,8 +9,9 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>DateDebut</th>
-                <th>DateFin</th>
+                <th>Poste</th>
+                <th>Date Debut</th>
+                <th>Date Fin</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,6 +19,7 @@
         {% for stage in stages %}
             <tr>
                 <td>{{ stage.id }}</td>
+                <td>{{ stage.poste }}</td>
                 <td>{{ stage.DateDebut ? stage.DateDebut|date('Y-m-d') : '' }}</td>
                 <td>{{ stage.DateFin ? stage.DateFin|date('Y-m-d') : '' }}</td>
                 <td>

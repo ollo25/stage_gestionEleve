@@ -70,12 +70,17 @@
                                     <label for="promotion"><i class="fas fa-graduation-cap me-2"></i>Promotion</label>
                                 </div>
 
-                                <div class="form-group-animated">
+                                <div class="form-group-animated position-relative">
                                     {{ form_widget(form.refStage, {'attr': {
-                                        'class': 'form-control-custom',
-                                        'id': 'stage'
+                                    'class': 'form-control-custom pe-4',
+                                    'id': 'stage'
                                     }}) }}
                                     <label for="stage"><i class="fas fa-briefcase me-2"></i>Stage</label>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary position-absolute end-0 top-50 translate-middle-y p-1"
+                                            data-bs-toggle="modal" data-bs-target="#modalNewStage" title="Ajouter un stage"
+                                            style="right: 2px; transform: translateY(-50%); width: 24px; height: 24px;">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
                                 </div>
 
                                 <div class="form-group-animated">
@@ -99,6 +104,19 @@
 
                         {{ form_end(form) }}
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalNewStage" tabindex="-1" aria-labelledby="modalNewStageLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNewStageLabel">Ajouter un stage</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <iframe src="{{ path('app_stage_new') }}" style="width:100%; height:70vh; border:none;"></iframe>
                 </div>
             </div>
         </div>

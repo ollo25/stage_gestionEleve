@@ -34,6 +34,9 @@ class Convocation
     #[ORM\JoinColumn(nullable: false)]
     private ?Etudiant $refEtudiant = null;
 
+    #[ORM\Column]
+    private ?bool $Etat = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -107,6 +110,18 @@ class Convocation
     public function setRefEtudiant(?Etudiant $refEtudiant): static
     {
         $this->refEtudiant = $refEtudiant;
+
+        return $this;
+    }
+
+    public function isEtat(): ?bool
+    {
+        return $this->Etat;
+    }
+
+    public function setEtat(bool $Etat): static
+    {
+        $this->Etat = $Etat;
 
         return $this;
     }

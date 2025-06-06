@@ -33,7 +33,16 @@ final class StageController extends AbstractController
             $entityManager->persist($stage);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_stage_index', [], Response::HTTP_SEE_OTHER);
+            if ($request->isXmlHttpRequest()) {
+                return $this->json([
+                    'message' => 'Stage créé avec succès',
+                    'stageId' => $stage->getId(),
+                    'stageLabel' => $stage->getPoste(),
+                ]);
+            }
+
+
+            return new Response('<script>window.parent.location.reload();</script>');
         }
 
         return $this->render('stage/new.html.twig', [
