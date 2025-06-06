@@ -14,6 +14,8 @@ class AlternanceForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('Poste')
+            ->add('Description')
             ->add('DateDebut')
             ->add('DateFin')
             ->add('CoutContrat')

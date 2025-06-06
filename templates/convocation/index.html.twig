@@ -13,6 +13,7 @@
                 <th>Motif</th>
                 <th>Description</th>
                 <th>ActionMiseEnPlace</th>
+                <th>Etat</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,6 +25,11 @@
                 <td>{{ convocation.Motif }}</td>
                 <td>{{ convocation.Description }}</td>
                 <td>{{ convocation.ActionMiseEnPlace }}</td>
+                <td>{% if convocation.Etat %}
+                        <span class="badge bg-success">Inscrit</span>
+                    {% else %}
+                        <span class="badge bg-danger">Non inscrit</span>
+                    {% endif %}</td>
                 <td>
                     <a href="{{ path('app_convocation_show', {'id': convocation.id}) }}">show</a>
                     <a href="{{ path('app_convocation_edit', {'id': convocation.id}) }}">edit</a>

@@ -49,7 +49,7 @@ class EtudiantForm extends AbstractType
             ->add('refStage', EntityType::class, [
                 'class' => Stage::class,
                 'choice_label' => function (Stage $stage) {
-                    return $stage->getRefEntreprise()->getNom();
+                    return $stage->getPoste()."(".$stage->getRefEntreprise()->getNom().")";
                 },
                 'attr' => ['class' => 'form-select'],
                 'label' => 'Stage associé',
@@ -59,7 +59,7 @@ class EtudiantForm extends AbstractType
             ->add('refAlternance', EntityType::class, [
                 'class' => Alternance::class,
                 'choice_label' => function (Alternance $alternance) {
-                return $alternance->getRefEntreprise()->getNom();
+                return $alternance->getPoste()." (".$alternance->getRefEntreprise()->getNom().")";
                 },
                 'attr' => ['class' => 'form-select'],
                 'label' => 'Alternance associée',

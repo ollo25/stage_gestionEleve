@@ -11,22 +11,24 @@
     <script src="{{ asset('js/base.js') }}"></script>
 
 {% endblock %}
-<nav class="animated-nav">
-    <div class="tab-content">
-        <ul class="nav-list">
-            <li class="nav-item {% if app.request.attributes.get('_route') == 'app_etudiant_index' %}active{% endif %}" data-target="home">
-                <a href="{{ path('app_etudiant_index') }}">Élèves</a>
-            </li>
-            <li class="nav-item {% if app.request.attributes.get('_route') == 'app_potentiel_eleve_index' %}active{% endif %}" data-target="products">
-                <a href="{{ path('app_potentiel_eleve_index') }}">Potentiels Élèves</a>
-            </li>
-            <li class="nav-item {% if app.request.attributes.get('_route') == 'app_entreprise_index' %}active{% endif %}" data-target="services">
-                <a href="{{ path('app_entreprise_index') }}">Entreprises</a>
-            </li>
-            <div class="nav-indicator"></div>
-        </ul>
-    </div>
-</nav>
+{% if not app.request.headers.get('sec-fetch-dest') == 'iframe' %}
+    <nav class="animated-nav">
+        <div class="tab-content">
+            <ul class="nav-list">
+                <li class="nav-item {% if app.request.attributes.get('_route') == 'app_etudiant_index' %}active{% endif %}" data-target="home">
+                    <a href="{{ path('app_etudiant_index') }}">Élèves</a>
+                </li>
+                <li class="nav-item {% if app.request.attributes.get('_route') == 'app_potentiel_eleve_index' %}active{% endif %}" data-target="products">
+                    <a href="{{ path('app_potentiel_eleve_index') }}">Potentiels Élèves</a>
+                </li>
+                <li class="nav-item {% if app.request.attributes.get('_route') == 'app_entreprise_index' %}active{% endif %}" data-target="services">
+                    <a href="{{ path('app_entreprise_index') }}">Entreprises</a>
+                </li>
+                <div class="nav-indicator"></div>
+            </ul>
+        </div>
+    </nav>
+{% endif %}
 {% block body %}
 
 {% endblock %}
