@@ -30,7 +30,7 @@ class Stage
 
     #[ORM\ManyToOne(inversedBy: 'stages')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?entreprise $refEntreprise = null;
+    private ?Entreprise $refEntreprise = null;
 
     #[ORM\Column(length: 500 , nullable: true)]
     private ?string $Description = null;
@@ -102,12 +102,12 @@ class Stage
         return $this;
     }
 
-    public function getRefEntreprise(): ?entreprise
+    public function getRefEntreprise(): ?Entreprise
     {
         return $this->refEntreprise;
     }
 
-    public function setRefEntreprise(?entreprise $refEntreprise): static
+    public function setRefEntreprise(?Entreprise $refEntreprise): static
     {
         $this->refEntreprise = $refEntreprise;
 
