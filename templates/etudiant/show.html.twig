@@ -29,7 +29,34 @@
             </tr>
         </tbody>
     </table>
+    <h2>Convocations</h2>
 
+    {% if etudiant.convocations|length > 0 %}
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Motif</th>
+                <th>Description</th>
+                <th>Action</th>
+                <th>Responsable</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for convocation in etudiant.convocations %}
+                <tr>
+                    <td>{{ convocation.date ? convocation.date|date('d/m/Y') : '' }}</td>
+                    <td>{{ convocation.motif }}</td>
+                    <td>{{ convocation.description }}</td>
+                    <td>{{ convocation.actionMiseEnPlace }}</td>
+                    <td>{{ convocation.refResponsable.email }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucune convocation pour cet étudiant.</p>
+    {% endif %}
     <a href="{{ path('app_etudiant_index') }}">back to list</a>
 
     <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}">edit</a>

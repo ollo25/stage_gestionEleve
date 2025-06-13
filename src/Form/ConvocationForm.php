@@ -21,13 +21,10 @@ class ConvocationForm extends AbstractType
             ->add('ActionMiseEnPlace')
             ->add('refResponsable', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => function (User $user) {
-                return $user->getPrenom() . ' ' . $user->getNom();
-                }
+                'disabled' => true,
             ])
             ->add('refEtudiant', EntityType::class, [
                 'class' => Etudiant::class,
-                'choice_label' => fn(Etudiant $e) => $e->getPrenom() . ' ' . $e->getNom(),
                 'disabled' => true,
             ])
         ;

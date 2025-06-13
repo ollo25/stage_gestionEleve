@@ -1,126 +1,21 @@
 {% extends 'base.html.twig' %}
+{% import "_macros/breadcumb.html.twig" as _breadcumb %}
 
-{% block title %}Nouvel Étudiant{% endblock %}
-
+{% block title %}Les étudiants{% endblock %}
+{% block titre_page %}Liste des étudiants{% endblock %}
+{% block action_page %}
+    <a href="{{ path('app_etudiant_index') }}" class="btn btn-sm btn-primary ms-3 px-4 py-3" >Retour</a>
+{% endblock %}
+{% block Breadcrumb %}
+    {{ _breadcumb.etape("Eleve") }}
+    {{ _breadcumb.etape("Ajout d'un nouvel eleve") }}
+{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('styles/style.css') }}">
 {% endblock %}
 
 {% block body %}
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="form-container animate__animated animate__fadeInUp">
-                    <div class="form-header">
-                        <h2 class="mb-0"><i class="fas fa-user-graduate me-2"></i> Nouvel Étudiant</h2>
-                    </div>
-
-                    <div class="form-body">
-                        {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
-
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group-animated">
-                                    {{ form_widget(form.Nom, {'attr': {
-                                        'class': 'form-control-custom',
-                                        'placeholder': ' ',
-                                        'id': 'nom'
-                                    }}) }}
-                                    <label for="nom"><i class="fas fa-signature me-2"></i>Nom</label>
-                                </div>
-
-                                <div class="form-group-animated">
-                                    {{ form_widget(form.Prenom, {'attr': {
-                                        'class': 'form-control-custom',
-                                        'placeholder': ' ',
-                                        'id': 'prenom'
-                                    }}) }}
-                                    <label for="prenom"><i class="fas fa-signature me-2"></i>Prénom</label>
-                                </div>
-
-                                <div class="form-group-animated">
-                                    {{ form_widget(form.Email, {'attr': {
-                                        'class': 'form-control-custom',
-                                        'placeholder': ' ',
-                                        'id': 'email'
-                                    }}) }}
-                                    <label for="email"><i class="fas fa-envelope me-2"></i>Email</label>
-                                </div>
-
-                                <div class="form-group-animated">
-                                    {{ form_widget(form.Telephone, {'attr': {
-                                        'class': 'form-control-custom',
-                                        'placeholder': ' ',
-                                        'id': 'telephone'
-                                    }}) }}
-                                    <label for="telephone"><i class="fas fa-phone me-2"></i>Téléphone</label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5">
-                                <div class="form-group-animated">
-                                    {{ form_widget(form.refPromotion, {'attr': {
-                                        'class': 'form-control-custom',
-                                        'id': 'promotion'
-                                    }}) }}
-                                    <label for="promotion"><i class="fas fa-graduation-cap me-2"></i>Promotion</label>
-                                </div>
-
-                                <div class="form-group-animated position-relative">
-                                    {{ form_widget(form.refStage, {'attr': {
-                                    'class': 'form-control-custom pe-4',
-                                    'id': 'stage'
-                                    }}) }}
-                                    <label for="stage"><i class="fas fa-briefcase me-2"></i>Stage</label>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary position-absolute end-0 top-50 translate-middle-y p-1"
-                                            data-bs-toggle="modal" data-bs-target="#modalNewStage" title="Ajouter un stage"
-                                            style="right: 2px; transform: translateY(-50%); width: 24px; height: 24px;">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-
-                                <div class="form-group-animated">
-                                    {{ form_widget(form.refAlternance, {'attr': {
-                                        'class': 'form-control-custom',
-                                        'id': 'alternance'
-                                    }}) }}
-                                    <label for="alternance"><i class="fas fa-business-time me-2"></i>Alternance</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-between mt-4">
-                            <a href="{{ path('app_etudiant_index') }}" class="btn-gradient">
-                                <i class="fas fa-arrow-left me-2"></i> Retour
-                            </a>
-                            <button type="submit" class="btn-gradient">
-                                <i class="fas fa-save me-2"></i> Enregistrer
-                            </button>
-                        </div>
-
-                        {{ form_end(form) }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="modalNewStage" tabindex="-1" aria-labelledby="modalNewStageLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalNewStageLabel">Ajouter un stage</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-                </div>
-                <div class="modal-body p-0">
-                    <iframe src="{{ path('app_stage_new') }}" style="width:100%; height:70vh; border:none;"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{ include('etudiant/_form.html.twig') }}
 {% endblock %}
 
 {% block javascripts %}

@@ -1,98 +1,91 @@
 {% extends 'base.html.twig' %}
+{% import "_macros/breadcumb.html.twig" as _breadcumb %}
 
-{% block title %}Etudiant index{% endblock %}
-
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable();
-        });
-    </script>
+{% block title %}Les étudiants{% endblock %}
+{% block titre_page %}Liste des étudiants{% endblock %}
+{% block action_page %}
+    <a href="{{ path('app_etudiant_new') }}" class="btn btn-sm btn-primary ms-3 px-4 py-3" >Nouvel étudiant</a>
 {% endblock %}
-
+{% block Breadcrumb %}
+    {{ _breadcumb.etape("Classes") }}
+    {{ _breadcumb.etape("Ajout d'une nouvelle classe") }}
+{% endblock %}
 {% block body %}
-    <div class="data-table-container">
-        <div class="data-table-header">
-            <h1 class="data-table-title">Liste des Étudiants</h1>
-            <a href="{{ path('app_etudiant_new') }}" class="btn-new">
-                Ajouter un nouvel étudiant
-            </a>
-            {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
-            {{ form_row(form.csv_file) }}
-            <button type="submit">Importer</button>
-            {{ form_end(form) }}
+    <div class="card card-flush">
+        <!--begin::Header-->
+        <div class="card-header border-0 pt-5 pb-3">
+            <!--begin::Heading-->
+            <div class="card-title align-items-start flex-column">
+                <!--begin::Search-->
+                <div class="w-175px position-relative my-1">
+                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                    <span class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                         <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                                         <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
+                                     </svg>
+                                </span>
+                    <!--end::Svg Icon-->
+                    <input data-kt-dataTable-filter="search" id="search" type="text" class="form-control form-control-sm form-control-solid ps-10" name="search" value="" placeholder="Rechercher" />
+                </div>
+                <!--end::Search-->
+            </div>
+            <!--end::Heading-->
 
         </div>
+        <!--end::Header-->
+        <div class="card-body pt-0">
+            <div class="table-responsive">
 
-        <div class="data-table-wrapper">
-            <table class="data-table" id="myTable">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Email</th>
-                    <th>Année</th>
-                    <th>Filière</th>
-                    <th>Telephone</th>
-                    <th>Actions</th>
-                    <th>Convocation</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for etudiant in etudiants %}
+                <table id="kt_dataTable" class="table table-striped table-bordered gy-5 gs-7">
+                    <thead>
                     <tr>
-                        <td>{{ etudiant.id }}</td>
-                        <td>{{ etudiant.nom }}</td>
-                        <td>{{ etudiant.prenom }}</td>
-                        <td>{{ etudiant.email }}</td>
-                        <td>{{ etudiant.refPromotion.annee }}</td>
-                        <td>{{ etudiant.refPromotion.filiere }}</td>
-                        <td>{{ etudiant.telephone }}</td>
-                        <td>
-                            <a href="{{ path('app_etudiant_show', {'id': etudiant.id}) }}" title="Voir">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}" title="Modifier">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form method="post"
-                                  action="{{ path('app_etudiant_delete', {'id': etudiant.id}) }}"
-                                  onsubmit="return confirm('Confirmer la suppression ?');"
-                                  style="display: inline;">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ etudiant.id) }}">
-                                <button type="submit" title="Supprimer"
-                                        style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;">
-                                    <i class="fas fa-trash"></i>
-
-                                </button>
-                            </form>
-                        </td>
-                        <td>
-                            <a href="{{ path('app_convocation_new', { etudiant: etudiant.id }) }}" class="btn btn-outline-primary">
-                                <i class="fas fa-plus"></i>
-                            </a>
-                            </a>
-                            <a href="{{ path('app_etudiant_show', {'id': etudiant.id}) }}" title="Voir">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                        </td>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Email</th>
+                        <th>Année</th>
+                        <th>Filière</th>
+                        <th>Telephone</th>
+                        <th>Convocation ?</th>
+                        <th>Actions</th>
                     </tr>
+                    </thead>
+                    <tbody>
+                    {% for etudiant in etudiants %}
+                        <tr>
+                            <td>{{ etudiant.id }}</td>
+                            <td>{{ etudiant.nom }}</td>
+                            <td>{{ etudiant.prenom }}</td>
+                            <td>{{ etudiant.email }}</td>
+                            <td>{{ etudiant.refPromotion.annee }}</td>
+                            <td>{{ etudiant.refPromotion.filiere }}</td>
+                            <td>{{ etudiant.telephone }}</td>
+                            <td>{{ etudiant.hasConvocationActive >0 ? "Oui ("~etudiant.hasConvocationActive~")" : "Non" }}</td>
+                            <td>
+                                <a href="{{ path('app_etudiant_show', {'id': etudiant.id}) }}" title="Voir">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}" title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{{ path('app_convocation_new', {'id': etudiant.id}) }}" title="Convoquer">
+                                    <i class="fas fa-plus"></i>
+                                </a>
 
-
-
-
-                {% else %}
-                    <tr>
-                        <td colspan="6" class="no-data">Aucun enregistrement trouvé</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                            </td>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        let colonne_filtre = 2;
+    </script>
+    <script type="text/javascript" src="{{ asset("js/dataTable_simple.js")}}"></script>
+
 {% endblock %}

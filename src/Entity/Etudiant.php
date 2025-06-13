@@ -166,4 +166,17 @@ class Etudiant
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->getNom()." ".$this->Prenom;
+    }
+    public function hasConvocationActive(){
+        $nbConvocs =0;
+        foreach ($this->convocations as $convocation) {
+            if ($convocation->isEtat()) {
+                $nbConvocs++;
+            }
+        }
+        return $nbConvocs;
+    }
 }

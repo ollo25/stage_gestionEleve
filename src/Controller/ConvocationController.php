@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Convocation;
 use App\Entity\Etudiant;
 use App\Form\ConvocationForm;
-use App\Repository\ConvocationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,19 +15,10 @@ use App\Repository\EtudiantRepository;
 #[Route('/convocation')]
 final class ConvocationController extends AbstractController
 {
-    #[Route('/new', name: 'app_convocation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, EtudiantRepository $etudiantRepository
+    #[Route('/new/{id}', name: 'app_convocation_new', methods: ['GET', 'POST'])]
+    public function new(Request $request,Etudiant $etudiant =  null, EntityManagerInterface $entityManager, EtudiantRepository $etudiantRepository
     ): Response {
         $convocation = new Convocation();
-        $etudiant = null;
-        $etudiantId = $request->query->get('etudiant');
-        if ($etudiantId) {
-            $etudiant = $etudiantRepository->find($etudiantId);
-            if ($etudiant) {
-                $convocation->setRefEtudiant($etudiant);
-            }
-        }
-
         $form = $this->createForm(ConvocationForm::class, $convocation);
         $form->handleRequest($request);
 
@@ -36,8 +26,10 @@ final class ConvocationController extends AbstractController
         if ($etudiant) {
             $convocation->setRefEtudiant($etudiant);
         }
+        $convocation->setRefResponsable($this->getUser());
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $convocation->setEtat(true);
             $entityManager->persist($convocation);
             $entityManager->flush();
 
@@ -49,16 +41,6 @@ final class ConvocationController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
-    #[Route('/{id}', name: 'app_convocation_show', methods: ['GET'])]
-    public function show(Convocation $convocation): Response
-    {
-        return $this->render('convocation/show.html.twig', [
-            'convocation' => $convocation,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'app_convocation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Convocation $convocation, EntityManagerInterface $entityManager): Response
     {

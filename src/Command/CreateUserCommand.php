@@ -13,7 +13,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
-    name: 'create:user',
+    name: 'lrch:create:user',
     description: 'Crée un nouvel utilisateur administrateur',
 )]
 class CreateUserCommand extends Command
