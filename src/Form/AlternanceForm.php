@@ -14,12 +14,12 @@ class AlternanceForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Poste')
-            ->add('Description')
-            ->add('DateDebut')
-            ->add('DateFin')
-            ->add('CoutContrat')
-            ->add('TuteurProfesseur')
+            ->add('poste')
+            ->add('description')
+            ->add('dateDebut')
+            ->add('dateFin')
+            ->add('coutContrat')
+            ->add('tuteurProfesseur')
             ->add('refEntreprise', EntityType::class, [
                 'class' => Entreprise::class,
                 'choice_label' => 'nom',

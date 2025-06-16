@@ -39,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Prenom = null;
+    private ?string $prenom = null;
 
     /**
      * @var Collection<int, PotentielEleve>
@@ -146,12 +146,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPrenom(): ?string
     {
-        return $this->Prenom;
+        return $this->prenom;
     }
 
-    public function setPrenom(string $Prenom): static
+    public function setPrenom(string $prenom): static
     {
-        $this->Prenom = $Prenom;
+        $this->prenom = $prenom;
 
         return $this;
     }
@@ -217,6 +217,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     public function __toString(): string
     {
-        return $this->nom." ".$this->Prenom;// TODO: Implement __toString() method.
+        return $this->nom." ".$this->prenom;// TODO: Implement __toString() method.
     }
 }

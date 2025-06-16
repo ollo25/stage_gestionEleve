@@ -13,21 +13,21 @@ class EntrepriseForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Nom', TextType::class, [
+            ->add('nom', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Ex: Société XYZ'
                 ],
                 'label' => 'Nom de l\'entreprise'
             ])
-            ->add('Siret', TextType::class, [
+            ->add('siret', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => '123 456 789 00012'
                 ],
                 'label' => 'Numéro SIRET'
             ])
-            ->add('Adresse', TextType::class, [
+            ->add('adresse', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => '123 Rue de Paris, 75000 Paris'

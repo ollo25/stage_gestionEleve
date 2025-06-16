@@ -14,25 +14,25 @@ class PotentielEleve
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Nom = null;
+    private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Prenom = null;
+    private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Email = null;
+    private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Telephone = null;
+    private ?string $telephone = null;
 
     #[ORM\Column(length: 100, nullable: true)]
-    private ?string $NumDossierPsup = null;
+    private ?string $numDossierPsup = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $FiliereEnvisage = null;
+    private ?string $filiereEnvisage = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $AncienEtablissement = null;
+    private ?string $ancienEtablissement = null;
 
     #[ORM\ManyToOne(inversedBy: 'potentielEleves')]
     #[ORM\JoinColumn(nullable: false)]
@@ -45,84 +45,84 @@ class PotentielEleve
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): static
+    public function setNom(string $nom): static
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
     public function getPrenom(): ?string
     {
-        return $this->Prenom;
+        return $this->prenom;
     }
 
-    public function setPrenom(string $Prenom): static
+    public function setPrenom(string $prenom): static
     {
-        $this->Prenom = $Prenom;
+        $this->prenom = $prenom;
 
         return $this;
     }
 
     public function getEmail(): ?string
     {
-        return $this->Email;
+        return $this->email;
     }
 
-    public function setEmail(string $Email): static
+    public function setEmail(string $email): static
     {
-        $this->Email = $Email;
+        $this->email = $email;
 
         return $this;
     }
 
     public function getTelephone(): ?string
     {
-        return $this->Telephone;
+        return $this->telephone;
     }
 
-    public function setTelephone(string $Telephone): static
+    public function setTelephone(string $telephone): static
     {
-        $this->Telephone = $Telephone;
+        $this->telephone = $telephone;
 
         return $this;
     }
 
     public function getNumDossierPsup(): ?string
     {
-        return $this->NumDossierPsup;
+        return $this->numDossierPsup;
     }
 
-    public function setNumDossierPsup(string $NumDossierPsup): static
+    public function setNumDossierPsup(string $numDossierPsup): static
     {
-        $this->NumDossierPsup = $NumDossierPsup;
+        $this->numDossierPsup = $numDossierPsup;
 
         return $this;
     }
 
     public function getFiliereEnvisage(): ?string
     {
-        return $this->FiliereEnvisage;
+        return $this->filiereEnvisage;
     }
 
-    public function setFiliereEnvisage(string $FiliereEnvisage): static
+    public function setFiliereEnvisage(string $filiereEnvisage): static
     {
-        $this->FiliereEnvisage = $FiliereEnvisage;
+        $this->filiereEnvisage = $filiereEnvisage;
 
         return $this;
     }
 
     public function getAncienEtablissement(): ?string
     {
-        return $this->AncienEtablissement;
+        return $this->ancienEtablissement;
     }
 
-    public function setAncienEtablissement(string $AncienEtablissement): static
+    public function setAncienEtablissement(string $ancienEtablissement): static
     {
-        $this->AncienEtablissement = $AncienEtablissement;
+        $this->ancienEtablissement = $ancienEtablissement;
 
         return $this;
     }

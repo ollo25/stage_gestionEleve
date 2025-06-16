@@ -16,13 +16,13 @@ class Promotion
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Filiere = null;
+    private ?string $filiere = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $Annee = null;
+    private ?string $annee = null;
 
     #[ORM\Column]
-    private ?int $Places = null;
+    private ?int $places = null;
 
     /**
      * @var Collection<int, Etudiant>
@@ -42,36 +42,36 @@ class Promotion
 
     public function getFiliere(): ?string
     {
-        return $this->Filiere;
+        return $this->filiere;
     }
 
-    public function setFiliere(string $Filiere): static
+    public function setFiliere(string $filiere): static
     {
-        $this->Filiere = $Filiere;
+        $this->filiere = $filiere;
 
         return $this;
     }
 
     public function getAnnee(): ?string
     {
-        return $this->Annee;
+        return $this->annee;
     }
 
-    public function setAnnee(string $Annee): static
+    public function setAnnee(string $annee): static
     {
-        $this->Annee = $Annee;
+        $this->annee = $annee;
 
         return $this;
     }
 
     public function getPlaces(): ?int
     {
-        return $this->Places;
+        return $this->places;
     }
 
-    public function setPlaces(int $Places): static
+    public function setPlaces(int $places): static
     {
-        $this->Places = $Places;
+        $this->places = $places;
 
         return $this;
     }

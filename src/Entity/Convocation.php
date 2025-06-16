@@ -15,16 +15,16 @@ class Convocation
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $Date = null;
+    private ?\DateTime $date = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $Motif = null;
+    private ?string $motif = null;
 
     #[ORM\Column(length: 500, nullable: true)]
-    private ?string $Description = null;
+    private ?string $description = null;
 
     #[ORM\Column(length: 500, nullable: true)]
-    private ?string $ActionMiseEnPlace = null;
+    private ?string $actionMiseEnPlace = null;
 
     #[ORM\ManyToOne(inversedBy: 'convocations')]
     #[ORM\JoinColumn(nullable: false)]
@@ -35,7 +35,7 @@ class Convocation
     private ?Etudiant $refEtudiant = null;
 
     #[ORM\Column]
-    private ?bool $Etat = null;
+    private ?bool $estOuverte = null;
 
     public function getId(): ?int
     {
@@ -44,48 +44,48 @@ class Convocation
 
     public function getDate(): ?\DateTime
     {
-        return $this->Date;
+        return $this->date;
     }
 
-    public function setDate(\DateTime $Date): static
+    public function setdate(\DateTime $date): static
     {
-        $this->Date = $Date;
+        $this->date = $date;
 
         return $this;
     }
 
     public function getMotif(): ?string
     {
-        return $this->Motif;
+        return $this->motif;
     }
 
-    public function setMotif(?string $Motif): static
+    public function setMotif(?string $motif): static
     {
-        $this->Motif = $Motif;
+        $this->motif = $motif;
 
         return $this;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
-    public function setDescription(?string $Description): static
+    public function setDescription(?string $description): static
     {
-        $this->Description = $Description;
+        $this->description = $description;
 
         return $this;
     }
 
     public function getActionMiseEnPlace(): ?string
     {
-        return $this->ActionMiseEnPlace;
+        return $this->actionMiseEnPlace;
     }
 
-    public function setActionMiseEnPlace(?string $ActionMiseEnPlace): static
+    public function setActionMiseEnPlace(?string $actionMiseEnPlace): static
     {
-        $this->ActionMiseEnPlace = $ActionMiseEnPlace;
+        $this->actionMiseEnPlace = $actionMiseEnPlace;
 
         return $this;
     }
@@ -114,14 +114,14 @@ class Convocation
         return $this;
     }
 
-    public function isEtat(): ?bool
+    public function estOuverte(): ?bool
     {
-        return $this->Etat;
+        return $this->estOuverte;
     }
 
-    public function setEtat(bool $Etat): static
+    public function setEstOuverte(bool $estOuverte): static
     {
-        $this->Etat = $Etat;
+        $this->estOuverte = $estOuverte;
 
         return $this;
     }

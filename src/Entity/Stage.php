@@ -17,10 +17,10 @@ class Stage
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $DateDebut = null;
+    private ?\DateTime $dateDebut = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $DateFin = null;
+    private ?\DateTime $dateFin = null;
 
     /**
      * @var Collection<int, Etudiant>
@@ -33,10 +33,10 @@ class Stage
     private ?Entreprise $refEntreprise = null;
 
     #[ORM\Column(length: 500 , nullable: true)]
-    private ?string $Description = null;
+    private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Poste = null;
+    private ?string $poste = null;
 
     public function __construct()
     {
@@ -50,24 +50,24 @@ class Stage
 
     public function getDateDebut(): ?\DateTime
     {
-        return $this->DateDebut;
+        return $this->dateDebut;
     }
 
-    public function setDateDebut(\DateTime $DateDebut): static
+    public function setDateDebut(\DateTime $dateDebut): static
     {
-        $this->DateDebut = $DateDebut;
+        $this->dateDebut = $dateDebut;
 
         return $this;
     }
 
     public function getDateFin(): ?\DateTime
     {
-        return $this->DateFin;
+        return $this->dateFin;
     }
 
-    public function setDateFin(\DateTime $DateFin): static
+    public function setDateFin(\DateTime $dateFin): static
     {
-        $this->DateFin = $DateFin;
+        $this->dateFin = $dateFin;
 
         return $this;
     }
@@ -116,24 +116,24 @@ class Stage
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
-    public function setDescription(string $Description): static
+    public function setDescription(string $description): static
     {
-        $this->Description = $Description;
+        $this->description = $description;
 
         return $this;
     }
 
     public function getPoste(): ?string
     {
-        return $this->Poste;
+        return $this->poste;
     }
 
-    public function setPoste(string $Poste): static
+    public function setPoste(string $poste): static
     {
-        $this->Poste = $Poste;
+        $this->poste = $poste;
 
         return $this;
     }

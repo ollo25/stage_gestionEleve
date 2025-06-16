@@ -16,16 +16,16 @@ class Etudiant
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Nom = null;
+    private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Prenom = null;
+    private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Email = null;
+    private ?string $email = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $Telephone = null;
+    private ?string $telephone = null;
 
     /**
      * @var Collection<int, Convocation>
@@ -55,48 +55,48 @@ class Etudiant
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): static
+    public function setNom(string $nom): static
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
     public function getPrenom(): ?string
     {
-        return $this->Prenom;
+        return $this->prenom;
     }
 
-    public function setPrenom(string $Prenom): static
+    public function setPrenom(string $prenom): static
     {
-        $this->Prenom = $Prenom;
+        $this->prenom = $prenom;
 
         return $this;
     }
 
     public function getEmail(): ?string
     {
-        return $this->Email;
+        return $this->email;
     }
 
-    public function setEmail(string $Email): static
+    public function setEmail(string $email): static
     {
-        $this->Email = $Email;
+        $this->email = $email;
 
         return $this;
     }
 
     public function getTelephone(): ?string
     {
-        return $this->Telephone;
+        return $this->telephone;
     }
 
-    public function setTelephone(string $Telephone): static
+    public function setTelephone(string $telephone): static
     {
-        $this->Telephone = $Telephone;
+        $this->telephone = $telephone;
 
         return $this;
     }
@@ -168,12 +168,12 @@ class Etudiant
     }
     public function __toString(): string
     {
-        return $this->getNom()." ".$this->Prenom;
+        return $this->getNom()." ".$this->getPrenom();
     }
     public function hasConvocationActive(){
         $nbConvocs =0;
         foreach ($this->convocations as $convocation) {
-            if ($convocation->isEtat()) {
+            if ($convocation->estOuverte()) {
                 $nbConvocs++;
             }
         }

@@ -17,26 +17,26 @@ class StageForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Poste', TextType::class, [
+            ->add('poste', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Ex: Développeur web'
                 ],
                 'label' => 'Poste proposé'
             ])
-            ->add('Description', TextareaType::class, [
+            ->add('description', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'rows' => 5,
                     'placeholder' => 'Décrivez les missions du stage...'
                 ]
             ])
-            ->add('DateDebut', DateType::class, [
+            ->add('dateDebut', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => ['class' => 'form-control datepicker'],
                 'label' => 'Date de début'
             ])
-            ->add('DateFin', DateType::class, [
+            ->add('dateFin', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => ['class' => 'form-control datepicker'],
                 'label' => 'Date de fin'

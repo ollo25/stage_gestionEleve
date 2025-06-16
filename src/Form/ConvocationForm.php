@@ -15,10 +15,10 @@ class ConvocationForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Date')
-            ->add('Motif')
-            ->add('Description')
-            ->add('ActionMiseEnPlace')
+            ->add('date')
+            ->add('motif')
+            ->add('description')
+            ->add('actionMiseEnPlace')
             ->add('refResponsable', EntityType::class, [
                 'class' => User::class,
                 'disabled' => true,

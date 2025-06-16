@@ -17,41 +17,41 @@ class PotentielEleveForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Nom', TextType::class, [
+            ->add('nom', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Dupont'
                 ],
                 'label' => 'Nom de famille'
             ])
-            ->add('Prenom', TextType::class, [
+            ->add('prenom', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Jean'
                 ],
                 'label' => 'Prénom'
             ])
-            ->add('Email', EmailType::class, [
+            ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'jean.dupont@example.com'
                 ]
             ])
-            ->add('Telephone', TelType::class, [
+            ->add('telephone', TelType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => '0612345678'
                 ],
                 'label' => 'Téléphone'
             ])
-            ->add('NumDossierPsup', TextType::class, [
+            ->add('numDossierPsup', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => '123456'
                 ],
                 'label' => 'Numéro dossier Parcoursup'
             ])
-            ->add('FiliereEnvisage', TextType::class, [
+            ->add('filiereEnvisage', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Informatique'

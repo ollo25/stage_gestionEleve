@@ -17,16 +17,16 @@ class Alternance
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $DateDebut = null;
+    private ?\DateTime $dateDebut = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $DateFin = null;
+    private ?\DateTime $dateFin = null;
 
     #[ORM\Column]
-    private ?float $CoutContrat = null;
+    private ?float $coutContrat = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $TuteurProfesseur = null;
+    private ?string $tuteurProfesseur = null;
 
     /**
      * @var Collection<int, Etudiant>
@@ -39,10 +39,10 @@ class Alternance
     private ?Entreprise $refEntreprise = null;
 
     #[ORM\Column(length: 500, nullable: true)]
-    private ?string $Description = null;
+    private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Poste = null;
+    private ?string $poste = null;
 
     public function __construct()
     {
@@ -56,48 +56,48 @@ class Alternance
 
     public function getDateDebut(): ?\DateTime
     {
-        return $this->DateDebut;
+        return $this->dateDebut;
     }
 
-    public function setDateDebut(\DateTime $DateDebut): static
+    public function setDateDebut(\DateTime $dateDebut): static
     {
-        $this->DateDebut = $DateDebut;
+        $this->dateDebut = $dateDebut;
 
         return $this;
     }
 
     public function getDateFin(): ?\DateTime
     {
-        return $this->DateFin;
+        return $this->dateFin;
     }
 
-    public function setDateFin(\DateTime $DateFin): static
+    public function setDateFin(\DateTime $dateFin): static
     {
-        $this->DateFin = $DateFin;
+        $this->dateFin = $dateFin;
 
         return $this;
     }
 
     public function getCoutContrat(): ?float
     {
-        return $this->CoutContrat;
+        return $this->coutContrat;
     }
 
-    public function setCoutContrat(float $CoutContrat): static
+    public function setCoutContrat(float $coutContrat): static
     {
-        $this->CoutContrat = $CoutContrat;
+        $this->coutContrat = $coutContrat;
 
         return $this;
     }
 
     public function getTuteurProfesseur(): ?string
     {
-        return $this->TuteurProfesseur;
+        return $this->tuteurProfesseur;
     }
 
-    public function setTuteurProfesseur(string $TuteurProfesseur): static
+    public function setTuteurProfesseur(string $tuteurProfesseur): static
     {
-        $this->TuteurProfesseur = $TuteurProfesseur;
+        $this->tuteurProfesseur = $tuteurProfesseur;
 
         return $this;
     }
@@ -146,24 +146,24 @@ class Alternance
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
-    public function setDescription(?string $Description): static
+    public function setDescription(?string $description): static
     {
-        $this->Description = $Description;
+        $this->description = $description;
 
         return $this;
     }
 
     public function getPoste(): ?string
     {
-        return $this->Poste;
+        return $this->poste;
     }
 
-    public function setPoste(string $Poste): static
+    public function setPoste(string $poste): static
     {
-        $this->Poste = $Poste;
+        $this->poste = $poste;
 
         return $this;
     }

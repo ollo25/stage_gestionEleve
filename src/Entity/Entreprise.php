@@ -16,13 +16,13 @@ class Entreprise
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Nom = null;
+    private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Siret = null;
+    private ?string $siret = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Adresse = null;
+    private ?string $adresse = null;
 
     /**
      * @var Collection<int, Stage>
@@ -49,36 +49,36 @@ class Entreprise
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): static
+    public function setNom(string $nom): static
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
     public function getSiret(): ?string
     {
-        return $this->Siret;
+        return $this->siret;
     }
 
-    public function setSiret(string $Siret): static
+    public function setSiret(string $siret): static
     {
-        $this->Siret = $Siret;
+        $this->siret = $siret;
 
         return $this;
     }
 
     public function getAdresse(): ?string
     {
-        return $this->Adresse;
+        return $this->adresse;
     }
 
-    public function setAdresse(string $Adresse): static
+    public function setAdresse(string $adresse): static
     {
-        $this->Adresse = $Adresse;
+        $this->adresse = $adresse;
 
         return $this;
     }

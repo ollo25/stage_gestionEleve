@@ -12,9 +12,9 @@ class PromotionForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Filiere')
-            ->add('Annee')
-            ->add('Places')
+            ->add('filiere')
+            ->add('annee')
+            ->add('places')
         ;
     }
 
