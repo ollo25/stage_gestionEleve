@@ -30,7 +30,7 @@ class Etudiant
     /**
      * @var Collection<int, Convocation>
      */
-    #[ORM\OneToMany(targetEntity: Convocation::class, mappedBy: 'refEtudiant')]
+    #[ORM\OneToMany(targetEntity: Convocation::class, mappedBy: 'refEtudiant',cascade: ['remove'], orphanRemoval: true)]
     private Collection $convocations;
 
     #[ORM\ManyToOne(inversedBy: 'etudiants')]
@@ -42,6 +42,12 @@ class Etudiant
     #[ORM\ManyToOne(inversedBy: 'etudiants')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Promotion $refPromotion = null;
+
+    #[ORM\Column]
+    private ?bool $Handicap = null;
+
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $Note = null;
 
     public function __construct()
     {
@@ -178,5 +184,29 @@ class Etudiant
             }
         }
         return $nbConvocs;
+    }
+
+    public function isHandicap(): ?bool
+    {
+        return $this->Handicap;
+    }
+
+    public function setHandicap(bool $Handicap): static
+    {
+        $this->Handicap = $Handicap;
+
+        return $this;
+    }
+
+    public function getNote(): ?string
+    {
+        return $this->Note;
+    }
+
+    public function setNote(?string $Note): static
+    {
+        $this->Note = $Note;
+
+        return $this;
     }
 }

@@ -181,7 +181,10 @@ License: For each use you must have a valid license purchased only from above li
 <script src="{{ asset("theme/plugins/custom/datatables/datatables.bundle.js")}}"></script>
 <!--end::Vendors Javascript-->
 {% block javascripts %}
-
+    <script>
+        let colonne_filtre = 2;
+    </script>
+    <script type="text/javascript" src="{{ asset("js/dataTable_simple.js")}}"></script>
 <!--begin::Custom Javascript(used for this page only)-->
 <script src="{{ asset("theme/js/widgets.bundle.js")}}"></script>
 <script src="{{ asset("theme/js/custom/widgets.js")}}"></script>

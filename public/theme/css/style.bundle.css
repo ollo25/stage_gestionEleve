@@ -2142,16 +2142,6 @@ progress {
   border-top-width: 0;
 }
 
-.table-striped > tbody > tr:nth-of-type(odd) > * {
-  --bs-table-accent-bg: var(--bs-table-striped-bg);
-  color: var(--bs-table-striped-color);
-}
-
-.table-striped-columns > :not(caption) > tr > :nth-child(even) {
-  --bs-table-accent-bg: var(--bs-table-striped-bg);
-  color: var(--bs-table-striped-color);
-}
-
 .table-active {
   --bs-table-accent-bg: var(--bs-table-active-bg);
   color: var(--bs-table-active-color);
@@ -49724,3 +49714,12 @@ body,
     display: none !important;
   }
 }
+.form-check-input {
+    border: 1px solid #800 !important;  /* un gris plus visible */
+    width: 2em;
+    height: 2em;
+    margin-top: 0.25em; /* ajuste l'alignement vertical */
+    vertical-align: middle;
+    cursor: pointer;
+}
+
