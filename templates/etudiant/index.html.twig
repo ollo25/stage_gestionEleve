@@ -5,6 +5,11 @@
 {% block titre_page %}Liste des étudiants{% endblock %}
 {% block action_page %}
     <a href="{{ path('app_etudiant_new') }}" class="btn btn-sm btn-primary ms-3 px-4 py-3" >Nouvel étudiant</a>
+    <form action="{{ path('app_etudiant_import') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="csv_file" accept=".csv" required>
+        <button type="submit" class="btn btn-primary">Importer CSV</button>
+    </form>
+
 {% endblock %}
 {% block Breadcrumb %}
     {{ _breadcumb.etape("Classes") }}

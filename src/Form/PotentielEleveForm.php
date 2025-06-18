@@ -58,7 +58,7 @@ class PotentielEleveForm extends AbstractType
                 ],
                 'label' => 'Filière envisagée'
             ])
-            ->add('AncienEtablissement', TextType::class, [
+            ->add('ancienEtablissement', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Lycée Descartes'

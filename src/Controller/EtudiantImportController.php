@@ -14,42 +14,35 @@ use App\Repository\PromotionRepository;
 
 class EtudiantImportController extends AbstractController
 {
-    #[Route('/import_etudiant', name: 'import_etudiant')]
-    public function import(Request $request, EntityManagerInterface $manager , PromotionRepository $promotionRepository): Response
+    #[Route('/etudiant/import', name: 'app_etudiant_import', methods: ['POST'])] 
+    public function import(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CsvImportTypeForm::class);
-        $form->handleRequest($request);
+        $file = $request->files->get('csv_file');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form['csv_file']->getData();
-
-            if (($handle = fopen($file->getPathname(), 'r')) !== false) {
-                fgetcsv($handle, 1000, ";"); // ignore l'en-tête
-
-                while (($row = fgetcsv($handle, 1000, ";")) !== false) {
-                    $etudiant = new Etudiant();
-                    $etudiant->setNom($row[0]);
-                    $etudiant->setPrenom($row[1]);
-                    $etudiant->setEmail($row[2]);
-                    $etudiant->setTelephone($row[3]);
-
-                    $promotion = $promotionRepository->findOneBy(['nom' => $row[4]]);
-                    if (!$promotion) {
-                        continue;
-                    }
-                    $etudiant->setRefPromotion($promotion);
-                }
-
-                fclose($handle);
-                $manager->flush();
-
-                $this->addFlash('success', 'Import réussi.');
-            }
-
+        if (!$file || !$file->isValid()) {
+            $this->addFlash('error', 'Fichier CSV invalide');
             return $this->redirectToRoute('app_etudiant_index');
         }
 
-        // afficher le formulaire sur la même page
+        // Traitement du CSV
+        $handle = fopen($file->getPathname(), 'r');
+        $delimiter = ';';
+        fgetcsv($handle, 1000, $delimiter);
+
+        while (($data = fgetcsv($handle, 1000, $delimiter)) !== false) {
+            $etudiant = new Etudiant();
+            $etudiant->setNom($data[1]);
+            $etudiant->setPrenom($data[2]);
+            $etudiant->setEmail($data[8]);
+            $etudiant->setTelephone($data[9]);
+            $etudiant->setRefPromotion($data[4]);
+            $entityManager->persist($etudiant);
+        }
+
+        fclose($handle);
+        $entityManager->flush();
+        $this->addFlash('success', 'Import réussi !');
+
         return $this->redirectToRoute('app_etudiant_index');
     }
 }
