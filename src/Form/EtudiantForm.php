@@ -63,26 +63,7 @@ class EtudiantForm extends AbstractType
                 'required' => false
 
             ])
-            ->add('refStage', EntityType::class, [
-                'class' => Stage::class,
-                'choice_label' => function (Stage $stage) {
-                    return $stage->getPoste()."(".$stage->getRefEntreprise()->getNom().")";
-                },
-                'attr' => ['class' => 'form-select'],
-                'label' => 'Stage associé',
-                'placeholder' => 'Sélectionnez un stage',
-                'required' => false
-            ])
-            ->add('refAlternance', EntityType::class, [
-                'class' => Alternance::class,
-                'choice_label' => function (Alternance $alternance) {
-                return $alternance->getPoste()." (".$alternance->getRefEntreprise()->getNom().")";
-                },
-                'attr' => ['class' => 'form-select'],
-                'label' => 'Alternance associée',
-                'placeholder' => 'Sélectionnez une alternance',
-                'required' => false
-            ])
+
             ->add('refPromotion', EntityType::class, [
                 'class' => Promotion::class,
                 'choice_label' => function(Promotion $promotion) {

@@ -6,7 +6,11 @@
     {% if "hidden" in formField.vars.block_prefixes %}
         {{ form_widget(formField) }}
     {% elseif formField.vars.choices is defined %}
-        {{ _form_input.input_select(formField) }}
+        {% if formField.vars.attr.with_plus is defined and formField.vars.attr.with_plus %}
+            {{ _form_input.input_select_plus(formField, path('app_stage_new')) }}
+        {% else %}
+            {{ _form_input.input_select(formField) }}
+        {% endif %}
     {% elseif formField.vars.checked is defined %}
         {{ _form_input.input_ligne(formField,false) }}
     {% else %}
