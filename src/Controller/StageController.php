@@ -33,6 +33,7 @@ final class StageController extends AbstractController
             $entityManager->persist($stage);
             $entityManager->flush();
 
+
             if ($request->isXmlHttpRequest()) {
                 return $this->json([
                     'message' => 'Stage créé avec succès',
