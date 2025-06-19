@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Nouvelle Entreprise{% endblock %}
-
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/adresse_autocomplete.js') }}" defer></script>
+{% endblock %}
 
 {% block body %}
     <div class="container py-5">
@@ -16,7 +19,7 @@
                         {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
 
                         <div class="form-group-animated">
-                            {{ form_widget(form.Nom, {'attr': {
+                            {{ form_widget(form.nom, {'attr': {
                                 'class': 'form-control-custom',
                                 'placeholder': ' ',
                                 'id': 'nom'
@@ -25,21 +28,25 @@
                         </div>
 
                         <div class="form-group-animated">
-                            {{ form_widget(form.Siret, {'attr': {
+                            {{ form_widget(form.siret, {'attr': {
                                 'class': 'form-control-custom',
                                 'placeholder': ' ',
                                 'id': 'siret'
                             }}) }}
                             <label for="siret"><i class="fas fa-id-card me-2"></i>Numéro SIRET</label>
                         </div>
-
-                        <div class="form-group-animated">
-                            {{ form_widget(form.Adresse, {'attr': {
-                                'class': 'form-control-custom',
-                                'placeholder': ' ',
-                                'id': 'adresse'
-                            }}) }}
-                            <label for="adresse"><i class="fas fa-map-marker-alt me-2"></i>Adresse</label>
+                        <div class="form-group-animated position-relative">
+                            {{ form_widget(form.adresse, {
+                                'attr': {
+                                    'class': 'form-control-custom',
+                                    'placeholder': ' ',
+                                    'id': 'autocomplete-input',
+                                    'autocomplete': 'off'
+                                }
+                            }) }}
+                            <label for="adresse"><i class="fas fa-id-card me-2"></i>Adresse</label>
+                            <div id="autocomplete-suggestions" class="autocomplete-suggestions"></div>
+                            <div id="suggestions" class="suggestions-container"></div>  {# conteneur pour afficher les suggestions #}
                         </div>
 
                         <div class="d-flex justify-content-between mt-4">
@@ -57,4 +64,10 @@
             </div>
         </div>
     </div>
+
+        <script src="{{ asset('js/adresse_autocomplete.js') }}"></script>
+
 {% endblock %}
+
+
+

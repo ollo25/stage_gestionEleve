@@ -28,10 +28,6 @@ class EntrepriseForm extends AbstractType
                 'label' => 'Numéro SIRET'
             ])
             ->add('adresse', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => '123 Rue de Paris, 75000 Paris'
-                ],
                 'label' => 'Adresse complète'
             ]);
     }
