@@ -167,4 +167,8 @@ class Alternance
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->getRefEntreprise()->getNom()." - ".$this->getPoste(). " - ".$this->coutContrat."€";
+    }
 }

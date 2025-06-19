@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Alternance;
+use App\Entity\Etudiant;
 use App\Form\AlternanceForm;
 use App\Repository\AlternanceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,8 +23,8 @@ final class AlternanceController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_alternance_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_alternance_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, ?Etudiant $etudiant = null): Response
     {
         $alternance = new Alternance();
         $form = $this->createForm(AlternanceForm::class, $alternance);
@@ -31,12 +32,26 @@ final class AlternanceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($alternance);
+
+            if ($etudiant !== null) {
+                $etudiant->setRefAlternance($alternance);
+                $entityManager->persist($etudiant);
+            }
+
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_alternance_index', [], Response::HTTP_SEE_OTHER);
+            if ($request->isXmlHttpRequest()) {
+                return $this->json([
+                    'message' => 'Stage créé avec succès',
+                    'alternanceId' => $alternance->getId(),
+                    'alternanceLabel' => $alternance->getPoste(),
+                ]);
+            }
+
+            return $this->redirectToRoute('app_etudiant_show', ['id' => $etudiant->getId()]);
         }
 
-        return $this->render('alternance/new.html.twig', [
+        return $this->render('stage/new.html.twig', [
             'alternance' => $alternance,
             'form' => $form,
         ]);

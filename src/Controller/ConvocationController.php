@@ -29,16 +29,23 @@ final class ConvocationController extends AbstractController
         $convocation->setRefResponsable($this->getUser());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $convocation->setEtat(true);
+            $convocation->setEstOuverte(true);
             $entityManager->persist($convocation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_etudiant_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_etudiant_show', ['id' => $convocation->getRefEtudiant()->getId()]);
         }
 
         return $this->render('convocation/new.html.twig', [
             'convocation' => $convocation,
             'form' => $form,
+        ]);
+    }
+    #[Route('/{id}', name: 'app_convocation_show', methods: ['GET'])]
+    public function show(Convocation $convocation): Response
+    {
+        return $this->render('convocation/show.html.twig', [
+            'convocation' => $convocation,
         ]);
     }
     #[Route('/{id}/edit', name: 'app_convocation_edit', methods: ['GET', 'POST'])]
@@ -58,15 +65,14 @@ final class ConvocationController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    #[Route('/{id}', name: 'app_convocation_delete', methods: ['POST'])]
-    public function delete(Request $request, Convocation $convocation, EntityManagerInterface $entityManager): Response
+    #[Route('/convocation/{id}/fermer', name: 'app_convocation_fermer', methods: ['POST'])]
+    public function fermer(Convocation $convocation, EntityManagerInterface $em, Request $request): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$convocation->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($convocation);
-            $entityManager->flush();
+        if ($this->isCsrfTokenValid('fermer' . $convocation->getId(), $request->getPayload()->getString('_token'))) {
+            $convocation->setEstOuverte(false);
+            $em->flush();
         }
 
-        return $this->redirectToRoute('app_convocation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_etudiant_show', ['id' => $convocation->getRefEtudiant()->getId()]);
     }
 }

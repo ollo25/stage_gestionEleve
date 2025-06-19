@@ -29,7 +29,8 @@ class StageForm extends AbstractType
                     'class' => 'form-control',
                     'rows' => 5,
                     'placeholder' => 'Décrivez les missions du stage...'
-                ]
+                ],
+                'required' => false
             ])
             ->add('dateDebut', DateType::class, [
                 'widget' => 'single_text',
@@ -39,7 +40,8 @@ class StageForm extends AbstractType
             ->add('dateFin', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => ['class' => 'form-control datepicker'],
-                'label' => 'Date de fin'
+                'label' => 'Date de fin',
+                'required' => false
             ])
             ->add('refEntreprise', EntityType::class, [
                 'class' => Entreprise::class,
@@ -49,6 +51,7 @@ class StageForm extends AbstractType
                 'placeholder' => 'Sélectionnez une entreprise'
             ]);
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

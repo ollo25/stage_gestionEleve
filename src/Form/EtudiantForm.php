@@ -52,7 +52,8 @@ class EtudiantForm extends AbstractType
             ->add('handicap', CheckboxType::class, [
                 'label' => 'Handicap',
                 'row_attr' => ['class' => 'form-check mb-3'],
-                'attr' => ['class' => 'form-check-input']
+                'attr' => ['class' => 'form-check-input'],
+                'required'=>false
             ])
             ->add('note', TextareaType::class, [
                 'attr' => [

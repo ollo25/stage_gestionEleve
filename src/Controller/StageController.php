@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etudiant;
 use App\Entity\Stage;
 use App\Form\StageForm;
 use App\Repository\StageRepository;
@@ -22,8 +23,8 @@ final class StageController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_stage_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_stage_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, ?Etudiant $etudiant = null): Response
     {
         $stage = new Stage();
         $form = $this->createForm(StageForm::class, $stage);
@@ -31,8 +32,13 @@ final class StageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($stage);
-            $entityManager->flush();
 
+            if ($etudiant !== null) {
+                $etudiant->setRefStage($stage);
+                $entityManager->persist($etudiant);
+            }
+
+            $entityManager->flush();
 
             if ($request->isXmlHttpRequest()) {
                 return $this->json([
@@ -42,8 +48,7 @@ final class StageController extends AbstractController
                 ]);
             }
 
-
-            return new Response('<script>window.parent.location.reload();</script>');
+            return $this->redirectToRoute('app_etudiant_show', ['id' => $etudiant->getId()]);
         }
 
         return $this->render('stage/new.html.twig', [

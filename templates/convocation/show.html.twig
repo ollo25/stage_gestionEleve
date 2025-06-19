@@ -1,28 +1,44 @@
-<h2>Convocations</h2>
+{% extends 'base.html.twig' %}
 
-{% if etudiant.convocations|length > 0 %}
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Date</th>
-            <th>Motif</th>
-            <th>Description</th>
-            <th>Action</th>
-            <th>Responsable</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for convocation in etudiant.convocations %}
-            <tr>
-                <td>{{ convocation.date ? convocation.date|date('d/m/Y') : '' }}</td>
-                <td>{{ convocation.motif }}</td>
-                <td>{{ convocation.description }}</td>
-                <td>{{ convocation.actionMiseEnPlace }}</td>
-                <td>{{ convocation.refResponsable.email }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>Aucune convocation pour cet étudiant.</p>
-{% endif %}
+{% block title %}Convocation{% endblock %}
+{% block titre_page %}Détail de Convocation{% endblock %}
+
+{% block action_page %}
+    <a href="{{ path('app_convocation_edit', {'id': convocation.id}) }}" class="btn btn-sm btn-primary ms-3 px-4 py-3">
+        <i class="fas fa-edit me-2"></i>Modifier
+    </a>
+{% endblock %}
+
+
+
+{% block body %}
+    <div class="card card-flush">
+
+        <div class="card-body pt-0">
+            <div class="table-responsive">
+                <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                    <tbody>
+                    <tr>
+                        <th>Date</th>
+                        <td>{{ convocation.Date ? convocation.Date|date('Y-m-d') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Motif</th>
+                        <td>{{ convocation.Motif }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ convocation.Description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Action mise en place </th>
+                        <td>{{ convocation.ActionMiseEnPlace }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
