@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 {% import "_macros/breadcumb.html.twig" as _breadcumb %}
 
-{% block title %}Les étudiants{% endblock %}
-{% block titre_page %}Liste des potentiels étudiants{% endblock %}
+{% block title %}Les potentiels élèves{% endblock %}
+{% block titre_page %}Liste des potentiels élèves{% endblock %}
 {% block action_page %}
-    <a href="{{ path('app_potentiel_eleve_new') }}" class="btn btn-sm btn-primary ms-3 px-4 py-3" >Ajout </a>
+    <a href="{{ path('app_potentiel_eleve_new') }}" class="btn btn-sm btn-primary ms-3 px-4 py-3" >Nouvel étudiant</a>
 
 {% endblock %}
 {% block Breadcrumb %}
-    {{ _breadcumb.etape("Classes") }}
-    {{ _breadcumb.etape("Potentiel Eleve") }}
+    {{ _breadcumb.etape("Potentiel élève") }}
+    {{ _breadcumb.etape("Liste") }}
 {% endblock %}
 {% block body %}
     <div class="card card-flush">
@@ -56,7 +56,7 @@
                             <td>{{ potentiel_eleve.nom }}</td>
                             <td>{{ potentiel_eleve.prenom }}</td>
                             <td>{{ potentiel_eleve.email }}</td>
-                            <td>{{ potentiel_eleve.telephone }}</td>
+                            <td>{{ potentiel_eleve.telephone|replace({' ': '', '-': '', '.': ''})|split('')|batch(2)|map(v => v|join) | join('.') }}</td>
                             <td>{{ potentiel_eleve.filiereEnvisage }}</td>
                             <td>{{ potentiel_eleve.ancienEtablissement }}</td>
                             <td>
@@ -79,11 +79,5 @@
         </div>
     </div>
 {% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        let colonne_filtre = 2;
-    </script>
-    <script type="text/javascript" src="{{ asset("js/dataTable_simple.js")}}"></script>
 
-{% endblock %}
+
