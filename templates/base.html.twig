@@ -58,13 +58,17 @@ License: For each use you must have a valid license purchased only from above li
     <!--begin::Page-->
     <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
         <!--begin::Header-->
-            {%include("_partial/header.html.twig")%}
+        {% if hide_menu is not defined or not hide_menu %}
+            {% include("_partial/header.html.twig") %}
+        {% endif %}
 
         <!--end::Header-->
         <!--begin::Wrapper-->
         <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
             <!--begin::Sidebar-->
-                {%include("_partial/menu.html.twig")%}
+            {% if hide_menu is not defined or not hide_menu %}
+                {% include("_partial/menu.html.twig") %}
+            {% endif %}
 
             <!--end::Sidebar-->
             <!--begin::Main-->

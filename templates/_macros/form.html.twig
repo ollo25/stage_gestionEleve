@@ -22,15 +22,25 @@
     </div>
 {% endmacro %}
 
-{% macro input_select(form_input) %}
-    <div class="row mb-6">
+{% macro input_ligne(form_input, theme=true) %}
+    <div class="row mb-6 position-relative">
         <!--begin::Label-->
         <label class="col-md-4 col-form-label fw-semibold fs-6">{{ form_label(form_input) }}</label>
         <!--end::Label-->
 
         <!--begin::Col-->
         <div class="col-md-8 fv-row fv-plugins-icon-container">
-            {{ form_widget(form_input, { 'attr': {'class': 'form-select form-select-solid bg-opacity-80 bg-secondary ', 'data-control':"select2", 'data-placeholder':"Sélectionner une option"}}) }}
+            {% if theme %}
+                {{ form_widget(form_input, { 'attr': {'class': 'form-control form-control-lg form-control-solid bg-opacity-80 bg-secondary'}}) }}
+            {% else %}
+                {{ form_widget(form_input) }}
+            {% endif %}
+
+            {# Ajout de la div pour les suggestions si l'ID du champ correspond #}
+            {% if form_input.vars.id == 'entreprise_form_adresse' %}
+                <div id="autocomplete-suggestions"></div>
+            {% endif %}
+
             <div class="form-text">
                 {{ form_help(form_input) }}
             </div>

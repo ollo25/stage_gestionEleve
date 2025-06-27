@@ -49714,12 +49714,52 @@ body,
     display: none !important;
   }
 }
-.form-check-input {
-    border: 1px solid #800 !important;  /* un gris plus visible */
-    width: 2em;
-    height: 2em;
-    margin-top: 0.25em; /* ajuste l'alignement vertical */
-    vertical-align: middle;
+/* S'assurer que le parent positionne correctement le menu */
+.form-floating.position-relative {
+    position: relative;
+}
+
+/* Style du container des suggestions */
+#autocomplete-suggestions {
+    position: absolute;
+    top: 100%; /* juste sous le champ */
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 0.5rem 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+    overflow-y: auto;
+    max-height: 250px;
+    margin-top: -1px;
+}
+
+/* Style des éléments */
+.suggestion-item {
+    padding: 0.75rem 1rem;
     cursor: pointer;
+    border-bottom: 1px solid #f1f1f1;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.suggestion-item:hover {
+    background-color: #f8f9fa;
+}
+
+.suggestion-main {
+    font-weight: 500;
+    color: #212529;
+}
+
+.suggestion-detail {
+    font-size: 0.85rem;
+    color: #6c757d;
 }
 

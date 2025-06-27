@@ -28,7 +28,13 @@ class EntrepriseForm extends AbstractType
                 'label' => 'Numéro SIRET'
             ])
             ->add('adresse', TextType::class, [
-                'label' => 'Adresse complète'
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => '5 Av. du Général de Gaulle, 93440 Dugny',
+                    'id' => 'autocomplete-input',
+                    'autocomplete' => 'off'
+                ],
+                'label' => 'Adresse complète',
             ]);
     }
 
